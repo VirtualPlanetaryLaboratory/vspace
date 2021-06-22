@@ -208,4 +208,4 @@ this file.
 Template Files
 ==============
 The template files are nearly identical to standard ``VPLanet`` input files except
-that they should not include the parameters to be varied.
+that they should not include the parameters to be varied.  
