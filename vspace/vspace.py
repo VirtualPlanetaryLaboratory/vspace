@@ -373,6 +373,32 @@ def main():
                         % (name, flist[fnum - 1])
                     )
 
+            # user wants to randomly sample a log-uniform distribution
+            elif values[2][0] == "t":
+                if mode == 1:
+                    # check if in random mode, all ok
+                    # construct array of randoms amples
+                    if np.float(values[0]) < 0:
+                        #user has set a negative value for endpoints
+                        #signs on left and right ends must agree! (might want to change for some parameters)
+                        array = -np.power(10, np.random.uniform(
+                            low=np.log10(-np.float(values[0])),
+                            high=np.log10(-np.float(values[1])),
+                            size=np.int(randsize),
+                        ))
+                    else:
+                        array = np.power(10, np.random.uniform(
+                            low=np.log10(np.float(values[0])),
+                            high=np.log10(np.float(values[1])),
+                            size=np.int(randsize),
+                        ))
+                else:
+                    #user tried to use random sampling in grid mode
+                    raise IOError(
+                        "Attempt to draw from a random distribution in grid mode for '%s' for '%s'"
+                        % (name, flist[fnum-1])
+                    )
+
             # user wants to randomly sample a uniform distribution of the SINE of an angle
             elif values[2][0] == "s":
                 if mode == 1:
