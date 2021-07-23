@@ -83,10 +83,10 @@ def main():
             if os.path.isdir(dest) == True and forced == True:
                 #destination folder exists but you want to overwrite it
                 sub.run(["rm", "-rf", dest])
-                if os.path.isfile(dest + ".hdf5") == True:
-                    sub.run(["rm", dest + ".hdf5"])
-                if os.path.isfile("." + dest + "_hdf5") == True:
-                    sub.run(["rm", "." + dest + "_hdf5"])
+                if os.path.isfile(dest + ".bpl") == True:
+                    sub.run(["rm", dest + ".bpl"])
+                if os.path.isfile("." + dest + "_bpl") == True:
+                    sub.run(["rm", "." + dest + "_bpl"])
                 if os.path.isfile("." + dest) == True:
                     sub.run(["rm", "." + dest])
             if os.path.isdir(dest) == True:
@@ -103,10 +103,10 @@ def main():
                     reply = str(input(question + " (y/n): ")).lower().strip()
                     if reply[:1] == "y":
                         sub.run(["rm", "-rf", dest])
-                        if os.path.isfile(dest + ".hdf5") == True:
-                            sub.run(["rm", dest + ".hdf5"])
-                        if os.path.isfile("." + dest + "_hdf5") == True:
-                            sub.run(["rm", "." + dest + "_hdf5"])
+                        if os.path.isfile(dest + ".bpl") == True:
+                            sub.run(["rm", dest + ".bpl"])
+                        if os.path.isfile("." + dest + "_bpl") == True:
+                            sub.run(["rm", "." + dest + "_bpl"])
                         if os.path.isfile("." + dest) == True:
                             sub.run(["rm", "." + dest])
                     if reply[:1] == "n":
