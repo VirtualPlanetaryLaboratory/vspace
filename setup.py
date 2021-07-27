@@ -77,5 +77,6 @@ setup(
     entry_points={"console_scripts": ["vspace=vspace.vspace:main",],},
     install_requires=["numpy", "matplotlib", "argparse",],
     include_package_data=True,
+    setup_requires=["setuptools_scm"],
     zip_safe=False,
 )
