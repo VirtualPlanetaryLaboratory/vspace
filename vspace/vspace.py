@@ -24,18 +24,23 @@ def SearchAngleUnit(src, flist):
 
     return angUnit
 
-def main():
-    parser = argparse.ArgumentParser(description="Create Vplanet parameter sweep")
-    parser.add_argument(
-        "-f",
-        "--force",
-        action="store_true",
-        help="forces override of vspace file creation"
-    )
-    parser.add_argument("InputFile", type=str, help="Name of the vspace input file")
-    args = parser.parse_args()
-    inputf = args.InputFile
-    forced = args.force
+def Argument():
+        parser = argparse.ArgumentParser(description="Create Vplanet parameter sweep")
+        parser.add_argument(
+            "-f",
+            "--force",
+            action="store_true",
+            help="forces override of vspace file creation"
+        )
+        parser.add_argument("InputFile", type=str, help="Name of the vspace input file")
+        args = parser.parse_args()
+        inputf = args.InputFile
+        forced = args.force
+
+        main(args.InputFile,args.force)
+
+
+def main(inputf,forced):
 
     try:
         f = open(inputf, "r")
@@ -69,13 +74,13 @@ def main():
     for i in range(len(lines)):
         if lines[i].split() == []:
             pass  # nothing on this line
-        elif lines[i].split()[0] == "srcfolder":
+        elif lines[i].split()[0] == "sSrcFolder":
             #read the folder containing template vplanet *.in files
             src = lines[i].split()[1]
             if "~" in src:  #you can specify a path relative to home directory
                 src = os.path.expanduser(src)
 
-        elif lines[i].split()[0] == "destfolder":
+        elif lines[i].split()[0] == "sDestFolder":
             #read the destination folder for resulting input files
             dest = lines[i].split()[1]
             if "~" in dest:  #you can specify a path relative to home directory
@@ -112,10 +117,10 @@ def main():
                     if reply[:1] == "n":
                         exit()
 
-        elif lines[i].split()[0] == "trialname":
+        elif lines[i].split()[0] == "sTrialName":
             #read in descriptive name for trials within destination folder
             trial = lines[i].split()[1]
-        elif lines[i].split()[0] == "samplemode":
+        elif lines[i].split()[0] == "sSamplemode":
             #read in sampling mode choice
             modename = lines[i].split()[1]
             if modename.startswith("g") or modename.startswith("G"):
@@ -126,21 +131,21 @@ def main():
                 mode = 1
             else:
                 raise IOError("samplemode must be grid or random")
-        elif lines[i].split()[0] == "seed":
+        elif lines[i].split()[0] == "iSeed":
             #for random sampling
             #read in RNG seed for better replicability
             if np.float(lines[i].split()[1]).is_integer():
                 np.random.seed(np.int(lines[i].split()[1]))
             else:
                 raise IOError("Attempt to pass non-integer value to seed")
-        elif lines[i].split()[0] == "file":
+        elif lines[i].split()[0] == "sBodyFile" or lines[i].split()[0] == "sPrimaryFile":
             #read in name of template *.in file to copy and add to new sims
             flist.append(lines[i].split()[1])
             fline.append(i)
         elif lines[i].split()[0] == "sUnitAngle":
             #read in user specified angle unit
             angUnit = lines[i].split()[1]
-        elif lines[i].split()[0] == "randsize":
+        elif lines[i].split()[0] == "iRandSize":
             #read in number of random simulations to generate
             if np.float(lines[i].split()[1]).is_integer():
                 randsize = np.int(lines[i].split()[1])
@@ -531,17 +536,17 @@ def main():
     # check whether essential items have all been set and are good
     if src is None:
         raise IOError(
-            "Name of source folder not provided in file '%s'. Use syntax 'srcfolder <foldername>'"
+            "Name of source folder not provided in file '%s'. Use syntax 'sSrcFolder <foldername>'"
             % inputf
         )
     if dest is None:
         raise IOError(
-            "Name of destination folder not provided in file '%s'. Use syntax 'destfolder <foldername>'"
+            "Name of destination folder not provided in file '%s'. Use syntax 'sDestFolder <foldername>'"
             % inputf
         )
     if flist == []:
         raise IOError(
-            "No files-to-be-copied provided in file '%s'. Use syntax 'file <filename>'"
+            "No files-to-be-copied provided in file '%s'. Use syntax 'sBodyFile <filename>' for body files and 'sPrimaryFile <filename>' for primary files"
         )
 
     if mode == 1:
@@ -939,4 +944,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    Argument()

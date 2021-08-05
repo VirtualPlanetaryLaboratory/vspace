@@ -74,7 +74,7 @@ setup(
         "write_to": os.path.join("vspace", "vspace_version.py"),
         "write_to_template": '__version__ = "{version}"\n',
     },
-    entry_points={"console_scripts": ["vspace=vspace.vspace:main",],},
+    entry_points={"console_scripts": ["vspace=vspace.vspace:Argument",],},
     install_requires=["numpy", "matplotlib", "argparse",],
     include_package_data=True,
     zip_safe=False,

@@ -13,3 +13,4 @@ __author__ = "Caitlyn Wilhelm (cwilhelm@uw.edu)"
 __copyright__ = "Copyright 2020  Caitlyn Wilhelm"
 
 from .vspace import *
+from .vspace_module import *
