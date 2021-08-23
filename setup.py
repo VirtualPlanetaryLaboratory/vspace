@@ -54,9 +54,8 @@ import os
 # Setup!
 setup(
     name="vspace",
-    version=VERSION,
     description="VPLANET parameter sweep helper",
-    long_description=readme(),
+    long_description=open("README.md", "r").read(),
     long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 3 - Alpha",
