@@ -6,7 +6,8 @@ Sampling Rules
 
     samplemode random
 
-will allow you to generate trials that are randomly distributed by sa "sampling rule".
+will allow you to generate trials that are randomly distributed by a "sampling rule". If *samplemode* 
+is not set, the default is grid mode.
 
 Grid Mode
 ---------
@@ -18,13 +19,14 @@ space, i.e even spacing. These submodes are **explicit**, **linear**, and
     <option> [start, end, spacing] <identifier>
 
 In all modes the "start" and "end" values represent the limits of the parameter
-to be surveyed and are inclusive of the end points.
+to be surveyed and are inclusive of the end points. <identifier> is the predfix to be 
+used in directory names.
 
 Explicit Grids
 ^^^^^^^^^^^^^^
 
 In this grid submode, the "spacing" value is just a number that represents the
-interval in between trials.``VSPACE`` will create as many trials as necessary
+interval in between trials. ``VSPACE`` will create as many trials as necessary
 to follow the sampling rules, and will not necessarily include a trial at the
 end value. For example, to generate trials that vary ``dSemi`` from 1 to 2
 with a spacing of 0.1, the syntax is:
@@ -35,7 +37,7 @@ Linear Grids
 ^^^^^^^^^^^^
 
 To sample the grid linearly with a specific number of trials
-that are evenly spaced, the spacing rule must star with an "n" followed
+that are evenly spaced, the spacing argument must star with an "n" followed
 by an integer that represents the number of values to generate. For example, the
 previous example could be rewritten as
 
@@ -93,7 +95,13 @@ Additionally, it is good practice to seed the random number generator, to allow 
 more easily reproducible results. This initialization is accomplished with the
 variable ``seed``:
 
-    seed <some integer>
+    seed <integer>
+
+With these options set, we can now specify how each parameter is varied.
+
+.. note::
+
+    It is not possible to mix grid and random modes.
 
 Uniform Distributions
 ^^^^^^^^^^^^^^^^^^^^^
@@ -102,7 +110,8 @@ A uniform distribution is sampled like so:
 
         <option> [<min>, <max>, u] <prefix>
 
-where <min> and <max> are the limits. 
+where <min> and <max> are the limits. Since the number of trials is set by the *randsize* option,
+we do not need to specify it again here.
 
 Gaussian Distributions
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -142,3 +151,10 @@ not the sine or cosine of the angle.
     
     The units of the angle can be either radians or degrees, but
     must be consistent with your template file. 
+
+Histograms
+----------
+
+If running in random mode, ``VSPACE`` will automatically generate histograms of the varied parameters.
+In the *destfolder* will be PNG files with plots of each parameter's distribution. These plots are not
+publication ready, but can be used to verify that the distributions created match your expectations.
