@@ -17,6 +17,7 @@ script to run.
 
    install
    help
+   sampling
    GitHub <https://github.com/VirtualPlanetaryLaboratory/vspace>
 
 .. note::
