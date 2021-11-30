@@ -100,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#sine-and-cosine-distributions">Sine and Cosine Distributions</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#histograms">Histograms</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/vspace">GitHub</a></li>
@@ -154,7 +155,8 @@
 <blockquote>
 <div><p>samplemode random</p>
 </div></blockquote>
-<p>will allow you to generate trials that are randomly distributed by sa “sampling rule”.</p>
+<p>will allow you to generate trials that are randomly distributed by a “sampling rule”. If <em>samplemode</em>
+is not set, the default is grid mode.</p>
 <section id="grid-mode">
 <h2>Grid Mode<a class="headerlink" href="#grid-mode" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> allows for 3 submodes to generate trials that explore a gridded parameter
@@ -164,11 +166,12 @@ space, i.e even spacing. These submodes are <strong>explicit</strong>, <strong>l
 <div><p>&lt;option&gt; [start, end, spacing] &lt;identifier&gt;</p>
 </div></blockquote>
 <p>In all modes the “start” and “end” values represent the limits of the parameter
-to be surveyed and are inclusive of the end points.</p>
+to be surveyed and are inclusive of the end points. &lt;identifier&gt; is the predfix to be
+used in directory names.</p>
 <section id="explicit-grids">
 <h3>Explicit Grids<a class="headerlink" href="#explicit-grids" title="Permalink to this headline">¶</a></h3>
 <p>In this grid submode, the “spacing” value is just a number that represents the
-interval in between trials.``VSPACE`` will create as many trials as necessary
+interval in between trials. <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will create as many trials as necessary
 to follow the sampling rules, and will not necessarily include a trial at the
 end value. For example, to generate trials that vary <code class="docutils literal notranslate"><span class="pre">dSemi</span></code> from 1 to 2
 with a spacing of 0.1, the syntax is:</p>
@@ -179,7 +182,7 @@ with a spacing of 0.1, the syntax is:</p>
 <section id="linear-grids">
 <h3>Linear Grids<a class="headerlink" href="#linear-grids" title="Permalink to this headline">¶</a></h3>
 <p>To sample the grid linearly with a specific number of trials
-that are evenly spaced, the spacing rule must star with an “n” followed
+that are evenly spaced, the spacing argument must star with an “n” followed
 by an integer that represents the number of values to generate. For example, the
 previous example could be rewritten as</p>
 <blockquote>
@@ -236,15 +239,21 @@ mode, with a few noteable differences. In random mode, one MUST set the variable
 more easily reproducible results. This initialization is accomplished with the
 variable <code class="docutils literal notranslate"><span class="pre">seed</span></code>:</p>
 <blockquote>
-<div><p>seed &lt;some integer&gt;</p>
+<div><p>seed &lt;integer&gt;</p>
 </div></blockquote>
+<p>With these options set, we can now specify how each parameter is varied.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not possible to mix grid and random modes.</p>
+</div>
 <section id="uniform-distributions">
 <h3>Uniform Distributions<a class="headerlink" href="#uniform-distributions" title="Permalink to this headline">¶</a></h3>
 <p>A uniform distribution is sampled like so:</p>
 <blockquote>
 <div><p>&lt;option&gt; [&lt;min&gt;, &lt;max&gt;, u] &lt;prefix&gt;</p>
 </div></blockquote>
-<p>where &lt;min&gt; and &lt;max&gt; are the limits.</p>
+<p>where &lt;min&gt; and &lt;max&gt; are the limits. Since the number of trials is set by the <em>randsize</em> option,
+we do not need to specify it again here.</p>
 </section>
 <section id="gaussian-distributions">
 <h3>Gaussian Distributions<a class="headerlink" href="#gaussian-distributions" title="Permalink to this headline">¶</a></h3>
@@ -282,6 +291,12 @@ not the sine or cosine of the angle.</p>
 must be consistent with your template file.</p>
 </div>
 </section>
+</section>
+<section id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
+<p>If running in random mode, <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will automatically generate histograms of the varied parameters.
+In the <em>destfolder</em> will be PNG files with plots of each parameter’s distribution. These plots are not
+publication ready, but can be used to verify that the distributions created match your expectations.</p>
 </section>
 </section>
 

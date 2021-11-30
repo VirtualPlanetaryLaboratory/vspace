@@ -1,6 +1,7 @@
 VSPACE Documentation
 ====================
-``VSPACE`` is a tool to build input files for a parameter sweep with ``VPLanet``.
+``VSPACE`` is a tool to build input files for a parameter sweep with ``VPLanet``, creating
+a set of individual directories that contain ``VPLanet`` input files that are ready to be simulated.
 
 With ``VSPACE`` you can quickly and easily build input files with specific
 parameters with a specific type of distribution. In **Grid Mode** you can build

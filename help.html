@@ -148,7 +148,7 @@ lines are described below and is based off the
 <a class="reference external" href="https://virtualplanetarylaboratory.github.io/vplanet/examples/IoHeat.html">IoHeat example</a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>srcfolder .
 <span class="linenos"> 2</span>destfolder data
-<span class="linenos"> 3</span>trialname  ioheat_
+<span class="linenos"> 3</span>trialname  ioheat
 <span class="linenos"> 4</span>
 <span class="linenos"> 5</span>file   vpl.in
 <span class="linenos"> 6</span>
@@ -160,8 +160,8 @@ lines are described below and is based off the
 </pre></div>
 </div>
 <p>The first line provides <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> with the location of a directory that contains the template
-<code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files, such as vpl.in, star.in, etc. The format of these files
-is slightly different when used with <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> then when used with a single <code class="docutils literal notranslate"><span class="pre">VPlanet</span></code> run (see below).</p>
+<code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files, such as vpl.in, star.in, etc. (see below). The format of these files
+is slightly different when used with <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> then when used with a single <code class="docutils literal notranslate"><span class="pre">VPlanet</span></code> run.</p>
 <p>Line 2 presents the name of the subdirectory that will contain all the initial conditions for
 the parameter sweep. In other words, a new directory called “data” will be created.</p>
 <p>Line 3 specifies a prefix for subdirectories in the <em>destfolder</em>. If this option is not set, the prefix is
@@ -169,19 +169,25 @@ set to “default”. With these top-level commands executed, the remaining line
 individual parameters are to be varied and completes the names of the trial directories. The general
 syntax for these lines are:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>file &lt;name&gt;
-&lt;option&gt; &lt;sampling rule&gt; &lt;identifier&gt;
-&lt;option&gt; &lt;sampling rule&gt; &lt;identifier&gt;
+&lt;option&gt; <span class="o">[</span>sampling rules<span class="o">]</span> &lt;identifier&gt;
+&lt;option&gt; <span class="o">[</span>sampling rules<span class="o">]</span> &lt;identifier&gt;
 ...
 </pre></div>
 </div>
 <p>where &lt;name&gt; is the name of the input file, &lt;option&gt; is the name of a <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code>
 input option (exact match required), &lt;sampling rule&gt; sets how the values of the option
-are to be sampled (described in more detail below in the <a class="reference external" href="sampling">Sampling
+are to be sampled (see the <a class="reference external" href="sampling">Sampling
 Rules</a> section), and &lt;identifier&gt; is a string that is appended to the trialname
 prefix in the destfolder subdirectories. <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will vary all parameters listed
 after a “file” command until it reaches the next “file” command or the end of the
-file. In this case the “n5” rule tells <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to create 5 evenly space values of dEcc between 0.001
+file. In this example we are not varying any options for vpl.in or jupiter.in, so they have no options
+listed. However they must still be included to inform <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> that they should be copied into the
+trial directories. In this case, “n5” tells <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to create 5 evenly spaced values of dEcc between 0.001
 and 0.005.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sampling rules must be bounded by square brackets.</p>
+</div>
 <p>This example will create subdirectories with names like</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>data/ioheat_ecc0obl0
 </pre></div>
