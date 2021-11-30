@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; vspace 1.0 documentation</title>
+  <title>Installation Guide &mdash; vspace 1.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="vspace 1.0 documentation" href="index.html"/>
-        <link rel="next" title="The Input File" href="help.html"/>
+        <link rel="next" title="Input Files" href="help.html"/>
         <link rel="prev" title="VSPACE Documentation" href="index.html"/> 
 
   
@@ -86,13 +86,8 @@
             
             
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#running-vspace">Running VSPACE</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="help.html">The Input File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="help.html#sampling-rules">Sampling Rules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="help.html#template-files">Template Files</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Input Files</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/vspace">GitHub</a></li>
 </ul>
 
@@ -125,7 +120,7 @@
     <li><a href="index.html">VPLanet</a> &raquo;</li>
       
     
-      <li>Installation</li>
+      <li>Installation Guide</li>
     
       <li class="wy-breadcrumbs-aside">
         
@@ -138,21 +133,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Navigate to the vspace directory (this directory) and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span></code>. This command places
-some path info in your shell files.</p>
-<section id="running-vspace">
-<h2>Running VSPACE<a class="headerlink" href="#running-vspace" title="Permalink to this headline">¶</a></h2>
-<p>Run <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> on the command line by typing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vspace &lt;input file&gt;
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Permalink to this headline">¶</a></h1>
+<p>There are two ways to install <code class="docutils literal notranslate"><span class="pre">VSPACE``</span></code>: 1) in conjunction with
+<a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/vplanet">VPLanet</a> and
+its other support scripts, or 2) from source.</p>
+<p>To install <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> and the other <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> packages, use the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m pip install vplanet
 </pre></div>
 </div>
-<p>where the input file contains a set of instructions to build the simulations. This
-will create a subdirectory containing a) additional subdirectories for each trial,
-b) histograms of each varied parameter, and c) a log file containing the value
-of each varied parameter in the trial subdirectories.</p>
-</section>
+<p>To install from source, first close the repo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/VirtualPlanetaryLaboratory/vspace.git
+</pre></div>
+</div>
+<p>and then go into the directory (vspace) and run the setup script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> vspace
+python setup.py install
+</pre></div>
+</div>
 </section>
 
 
@@ -162,7 +160,7 @@ of each varied parameter in the trial subdirectories.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="help.html" class="btn btn-neutral float-right" title="The Input File" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="help.html" class="btn btn-neutral float-right" title="Input Files" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="VSPACE Documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The Input File &mdash; vspace 1.0 documentation</title>
+  <title>Input Files &mdash; vspace 1.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="vspace 1.0 documentation" href="index.html"/>
-        <link rel="prev" title="Installation" href="install.html"/> 
+        <link rel="prev" title="Installation Guide" href="install.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,24 +85,12 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">The Input File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#sampling-rules">Sampling Rules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#grid-mode">Grid Mode</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#explicit-submode">Explicit Submode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linear-submode">Linear Submode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#logarithmic-submode">Logarithmic Submode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Input Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vspace-in">vspace.in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-files">Template Files</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#random-mode">Random Mode</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#uniform-submode">Uniform Submode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gaussian-submode">Gaussian Submode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sine-and-cosine-submodes">Sine and Cosine Submodes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#template-files">Template Files</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/vspace">GitHub</a></li>
 </ul>
 
@@ -135,7 +123,7 @@
     <li><a href="index.html">VPLanet</a> &raquo;</li>
       
     
-      <li>The Input File</li>
+      <li>Input Files</li>
     
       <li class="wy-breadcrumbs-aside">
         
@@ -148,201 +136,73 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="the-input-file">
-<h1>The Input File<a class="headerlink" href="#the-input-file" title="Permalink to this headline">¶</a></h1>
+  <section id="input-files">
+<h1>Input Files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h1>
+<section id="vspace-in">
+<h2>vspace.in<a class="headerlink" href="#vspace-in" title="Permalink to this headline">¶</a></h2>
 <p>The input file contains a list of template files and all the <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> options to vary.
 An example input file, called <code class="docutils literal notranslate"><span class="pre">vspace.in</span></code>, is included in this directory and its
-lines are described below and is based off the <a class="reference external" href="../examples/IoHeat">IoHeat example</a>.</p>
-<p>The first line is</p>
-<blockquote>
-<div><p>srcfolder &lt;path-to-template-files&gt;</p>
-</div></blockquote>
-<p>This provides <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> with the location of a directory that contains the template
-<code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files, such as vpl.in, star.in, etc. The format of the input files
-is slightly different when used with <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> as described below.</p>
-<p>The next line is</p>
-<blockquote>
-<div><p>destfolder &lt;path-to-output&gt;</p>
-</div></blockquote>
-<p>which is the name of a subdirectory that will contain all the initial conditions for the parameter sweep.</p>
-<p>The next line is</p>
-<blockquote>
-<div><p>trialname  &lt;prefix&gt;</p>
-</div></blockquote>
-<p>which specifies the prefix for subdirectories of the the parameter sweep. The prefix defaults
-to “default” if this command is not included.</p>
-<p>With these top-level commands executed, the remaining lines describe how the
-individual parameters are to be varied, and completes the names of the trial directories.
-In the example <code class="docutils literal notranslate"><span class="pre">vspace.in</span></code> file, these lines are</p>
-<blockquote>
-<div><p>file   jupiter.in</p>
-<p>file   io.in</p>
-<p>dEcc  [0.001,0.005,n5] ecc</p>
-<p>dObliquity [0,10,n5] obl</p>
-<p>file   vpl.in</p>
-</div></blockquote>
-<p>The general syntax for these lines are:</p>
-<blockquote>
-<div><p>file &lt;name&gt;</p>
-<p>&lt;option&gt; &lt;sampling rules&gt; &lt;identifier&gt;</p>
-<p>&lt;option&gt; &lt;sampling rules&gt; &lt;identifier&gt;</p>
-<p>…</p>
-</div></blockquote>
-<p>where &lt;name&gt; is the name of the input file. The next lines describe how individual
-options are varied. &lt;option&gt; is the name of the <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code>
-input option (exact match required), the &lt;sampling rules&gt; describe the manner in
-which the parameter is distributed (described in more detail below in the <code class="docutils literal notranslate"><span class="pre">Sampling</span>
-<span class="pre">Rules</span></code> section), and &lt;identifier&gt; is a string that is appended to the trialname
+lines are described below and is based off the
+<a class="reference external" href="https://virtualplanetarylaboratory.github.io/vplanet/examples/IoHeat.html">IoHeat example</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>srcfolder .
+<span class="linenos"> 2</span>destfolder data
+<span class="linenos"> 3</span>trialname  ioheat_
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>file   vpl.in
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>file   jupiter.in
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>file   io.in
+<span class="linenos">10</span>dEcc  <span class="o">[</span><span class="m">0</span>.001,0.005,n5<span class="o">]</span> ecc
+<span class="linenos">11</span>dObliquity <span class="o">[</span><span class="m">0</span>,10,n5<span class="o">]</span> obl
+</pre></div>
+</div>
+<p>The first line provides <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> with the location of a directory that contains the template
+<code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files, such as vpl.in, star.in, etc. The format of these files
+is slightly different when used with <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> then when used with a single <code class="docutils literal notranslate"><span class="pre">VPlanet</span></code> run (see below).</p>
+<p>Line 2 presents the name of the subdirectory that will contain all the initial conditions for
+the parameter sweep. In other words, a new directory called “data” will be created.</p>
+<p>Line 3 specifies a prefix for subdirectories in the <em>destfolder</em>. If this option is not set, the prefix is
+set to “default”. With these top-level commands executed, the remaining lines describe how the
+individual parameters are to be varied and completes the names of the trial directories. The general
+syntax for these lines are:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>file &lt;name&gt;
+&lt;option&gt; &lt;sampling rule&gt; &lt;identifier&gt;
+&lt;option&gt; &lt;sampling rule&gt; &lt;identifier&gt;
+...
+</pre></div>
+</div>
+<p>where &lt;name&gt; is the name of the input file, &lt;option&gt; is the name of a <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code>
+input option (exact match required), &lt;sampling rule&gt; sets how the values of the option
+are to be sampled (described in more detail below in the <a class="reference external" href="sampling">Sampling
+Rules</a> section), and &lt;identifier&gt; is a string that is appended to the trialname
 prefix in the destfolder subdirectories. <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will vary all parameters listed
 after a “file” command until it reaches the next “file” command or the end of the
-file.</p>
+file. In this case the “n5” rule tells <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to create 5 evenly space values of dEcc between 0.001
+and 0.005.</p>
 <p>This example will create subdirectories with names like</p>
-<blockquote>
-<div><p>test/trial_ecc0obl0</p>
-</div></blockquote>
-<p>with files jupiter.in, io.in, and vpl.in that would be identical to those files
-in the srcfolder <strong>except</strong> dEcc and dObliquity would have values that follow the
-sampling rules in io.in. The numbers after each &lt;identifier&gt; uniquely identifies the
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>data/ioheat_ecc0obl0
+</pre></div>
+</div>
+<p>each with the files jupiter.in, io.in, and vpl.in that would be identical to those files
+in the srcfolder, <strong>except</strong> dEcc and dObliquity would have values that follow the
+sampling rules. The numbers after each &lt;identifier&gt; uniquely identifies the
 subdirectory.</p>
 <p>Once the directories have been created, they can all be executed with a single command
-using the <a class="reference external" href="../multi-planet">multi-planet</a> script.</p>
-<p>You can additionally remove options from a source file with the following command:</p>
-<blockquote>
-<div><p>rm &lt;option name&gt;</p>
-</div></blockquote>
-<p>For the time being, this merely comments out the matching line.</p>
-</section>
-<section id="sampling-rules">
-<h1>Sampling Rules<a class="headerlink" href="#sampling-rules" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> has two sampling modes: <strong>grid</strong> and <strong>random</strong>, which are specified with the word
-“samplemode”. For example:</p>
-<blockquote>
-<div><p>samplemode random</p>
-</div></blockquote>
-<p>will allow you to generate trials that are randomly distributed.</p>
-<section id="grid-mode">
-<h2>Grid Mode<a class="headerlink" href="#grid-mode" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> allows for 3 submodes to generate trials that explore a gridded parameter
-space, i.e even spacing. These submodes are <strong>explicit</strong>, <strong>linear</strong>, and
-<strong>logarithmic</strong>. Each adheres the following syntax:</p>
-<blockquote>
-<div><p>&lt;option&gt; [start, end, spacing] &lt;identifier&gt;</p>
-</div></blockquote>
-<p>In all modes the “start” and “end” values represent the limits of the parameter
-to be surveyed and are inclusive of the end points.</p>
-<section id="explicit-submode">
-<h3>Explicit Submode<a class="headerlink" href="#explicit-submode" title="Permalink to this headline">¶</a></h3>
-<p>In this grid submode, the “spacing” value is just a number that represents the
-interval in between trials.``VSPACE`` will create as many trials as necessary
-to follow the sampling rules, and will not necessarily include a trial at the
-end value. For example, to generate trials that vary <code class="docutils literal notranslate"><span class="pre">dSemi</span></code> from 1 to 2
-with a spacing of 0.1, the syntax is:</p>
-<blockquote>
-<div><p>dSemi  [1, 2, 0.1]  a</p>
-</div></blockquote>
-</section>
-<section id="linear-submode">
-<h3>Linear Submode<a class="headerlink" href="#linear-submode" title="Permalink to this headline">¶</a></h3>
-<p>To sample the grid linearly with a specific number of trials
-that are evenly spaced, change the spacing to be an “n” followed
-by an integer that represents the number of values to generate. For example, the
-previous example could be rewritten as</p>
-<blockquote>
-<div><p>dSemi  [1, 2, n11]  a</p>
-</div></blockquote>
-<p>which would generate 11 trials, equally spaced, from 1 to 2, i.e. every 0.1.</p>
-<p>Negative values are allowed, but if you are providing the spacing,
-rather than using the “n” or “l” option, either provide a negative spacing or
-swap the start and end values. For example:</p>
-<blockquote>
-<div><p>dRadius  [-1, -2, -0.1]  R</p>
-</div></blockquote>
-<p>or,</p>
-<blockquote>
-<div><p>dRadius  [-2, -1, 0.1]  R</p>
-</div></blockquote>
-<p>rather than <code class="docutils literal notranslate"><span class="pre">dRadius</span> <span class="pre">[-1,</span> <span class="pre">-2,</span> <span class="pre">0.1]</span>&#160; <span class="pre">R</span></code>.</p>
-<p><strong>NOTE:</strong> <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will NOT check whether a minus option causes
-<code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> to change the units, so make sure you check <code class="docutils literal notranslate"><span class="pre">vplanet</span> <span class="pre">-h</span></code>.
-If you use negative values for a parameter that has alternate units for a
-negative option, the outcome will most likely be wrong!</p>
-</section>
-<section id="logarithmic-submode">
-<h3>Logarithmic Submode<a class="headerlink" href="#logarithmic-submode" title="Permalink to this headline">¶</a></h3>
-<p>To change the spacing to be logarithmic, use “l” instead of “n”:</p>
-<blockquote>
-<div><p>dSemi  [1, 1000, l10]  a</p>
-</div></blockquote>
-<p>which would generate ten trials, logarithmically spaced, from 1 to 1000.</p>
-<p><strong>Pro Tip</strong>: As described above, you can vary more than one parameter at a time. While this
-can be very useful, <strong>you have the power to generate a large number of files very
-quickly</strong>. Use this feature wisely: test with small numbers first to ensure that files appear
-in the correct locations and that initial conditions are indeed output with
-the desired values (check the histograms).</p>
-</section>
-</section>
-<section id="random-mode">
-<h2>Random Mode<a class="headerlink" href="#random-mode" title="Permalink to this headline">¶</a></h2>
-<p>The random mode contains four submodes: <strong>uniform</strong>, <strong>Gaussian</strong>, <strong>sine</strong> and
-<strong>cosine</strong>. The syntax for generating randomly sampled data is similar to grid
-mode, with a few noteable differences. In random mode, one MUST set the variable
-<code class="docutils literal notranslate"><span class="pre">randsize</span></code> to an integer value that is the number of trials:</p>
-<blockquote>
-<div><p>randsize &lt;number of trials&gt;</p>
-</div></blockquote>
-<p>Additionally, it is good practice to seed the random number generator, to allow for
-more easily reproducible results. This initialization is accomplished with the
-variable <code class="docutils literal notranslate"><span class="pre">seed</span></code>:</p>
-<blockquote>
-<div><p>seed &lt;some integer&gt;</p>
-</div></blockquote>
-<section id="uniform-submode">
-<h3>Uniform Submode<a class="headerlink" href="#uniform-submode" title="Permalink to this headline">¶</a></h3>
-<p>A uniform distribution is sampled like so:</p>
-<blockquote>
-<div><p>&lt;option&gt; [&lt;min&gt;, &lt;max&gt;, u] &lt;prefix&gt;</p>
-</div></blockquote>
-<p>where &lt;min&gt; and &lt;max&gt; are the limits.</p>
-</section>
-<section id="gaussian-submode">
-<h3>Gaussian Submode<a class="headerlink" href="#gaussian-submode" title="Permalink to this headline">¶</a></h3>
-<p>For Gaussian/normal distributions, the syntax is:</p>
-<blockquote>
-<div><p>&lt;option&gt; [&lt;mean&gt;, &lt;width/stdev&gt;, g] &lt;prefix&gt;</p>
-</div></blockquote>
-<p>An example would be:</p>
-<blockquote>
-<div><p>dEcc  [0.1, 0.01, g]  e</p>
-</div></blockquote>
-<p>For some parameters, you may want to truncate the distribution at certain values,
-for example, dEcc should not be &lt; 0 or &gt; 1. You can provide cutoffs with 4th and/or
-5th arguments in the brackets with the keywords “min” or “max”:</p>
-<blockquote>
-<div><p>dEcc  [0.1, 0.01, g, min0.0, max1.0]  e</p>
-</div></blockquote>
-<p>You do not need to provide both min and max if you need only one, and the order does
-not matter.</p>
-</section>
-<section id="sine-and-cosine-submodes">
-<h3>Sine and Cosine Submodes<a class="headerlink" href="#sine-and-cosine-submodes" title="Permalink to this headline">¶</a></h3>
-<p>For angles, you may want to sample the sine or cosine of the angle uniformly,
-rather than sampling the angle itself uniformly. You can accomplish this
-with <code class="docutils literal notranslate"><span class="pre">s</span></code> or <code class="docutils literal notranslate"><span class="pre">c</span></code>, for sine and cosine respectively:</p>
-<blockquote>
-<div><p>&lt;option&gt; [&lt;low angle&gt;, &lt;high angle&gt;, s] &lt;prefix&gt;</p>
-<p>&lt;option&gt; [&lt;low angle&gt;, &lt;high angle&gt;, c] &lt;prefix&gt;</p>
-</div></blockquote>
-<p>Note that &lt;low angle&gt; and &lt;high angle&gt; should be the min and max values of the ANGLE,
-not the sine or cosine of the angle. <strong>NOTE</strong>: The units of the angle can be either radians or degrees, but
-must be consistent with your primary input file, usually <code class="docutils literal notranslate"><span class="pre">vpl.in</span></code> – <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> determines the unit from
-this file.</p>
-</section>
-</section>
+using the <a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/multi-planet">multi-planet</a> script and
+the vspace.in file.</p>
 </section>
 <section id="template-files">
-<h1>Template Files<a class="headerlink" href="#template-files" title="Permalink to this headline">¶</a></h1>
+<h2>Template Files<a class="headerlink" href="#template-files" title="Permalink to this headline">¶</a></h2>
 <p>The template files are nearly identical to standard <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files except
 that they should not include the parameters to be varied.</p>
+<p>You can additionally instruct <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to remove options from a template file with by including a line in
+vspace.in like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm &lt;option name&gt;
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will merely comments out the matching line.</p>
+</section>
 </section>
 
 
@@ -353,7 +213,7 @@ that they should not include the parameters to be varied.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="install.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral" title="Installation Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

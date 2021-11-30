@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sampling Rules &mdash; vspace 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="vspace 1.0 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> vspace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Input Files</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/vspace">GitHub</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">vspace</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">VPLanet</a> &raquo;</li>
+      
+    
+      <li>Sampling Rules</li>
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="sampling-rules">
+<h1>Sampling Rules<a class="headerlink" href="#sampling-rules" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> has two sampling modes: <strong>grid</strong> and <strong>random</strong>, which are specified with the word
+“samplemode” in the input file (vspace.in). For example:</p>
+<blockquote>
+<div><p>samplemode random</p>
+</div></blockquote>
+<p>will allow you to generate trials that are randomly distributed by sa “sampling rule”.</p>
+<section id="grid-mode">
+<h2>Grid Mode<a class="headerlink" href="#grid-mode" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> allows for 3 submodes to generate trials that explore a gridded parameter
+space, i.e even spacing. These submodes are <strong>explicit</strong>, <strong>linear</strong>, and
+<strong>logarithmic</strong>. Each adheres the following syntax:</p>
+<blockquote>
+<div><p>&lt;option&gt; [start, end, spacing] &lt;identifier&gt;</p>
+</div></blockquote>
+<p>In all modes the “start” and “end” values represent the limits of the parameter
+to be surveyed and are inclusive of the end points.</p>
+<section id="explicit-grids">
+<h3>Explicit Grids<a class="headerlink" href="#explicit-grids" title="Permalink to this headline">¶</a></h3>
+<p>In this grid submode, the “spacing” value is just a number that represents the
+interval in between trials.``VSPACE`` will create as many trials as necessary
+to follow the sampling rules, and will not necessarily include a trial at the
+end value. For example, to generate trials that vary <code class="docutils literal notranslate"><span class="pre">dSemi</span></code> from 1 to 2
+with a spacing of 0.1, the syntax is:</p>
+<blockquote>
+<div><p>dSemi  [1, 2, 0.1]  a</p>
+</div></blockquote>
+</section>
+<section id="linear-grids">
+<h3>Linear Grids<a class="headerlink" href="#linear-grids" title="Permalink to this headline">¶</a></h3>
+<p>To sample the grid linearly with a specific number of trials
+that are evenly spaced, the spacing rule must star with an “n” followed
+by an integer that represents the number of values to generate. For example, the
+previous example could be rewritten as</p>
+<blockquote>
+<div><p>dSemi  [1, 2, n11]  a</p>
+</div></blockquote>
+<p>which would generate 11 trials, equally spaced, from 1 to 2, i.e. every 0.1.</p>
+<p>Negative values are allowed, but if you are providing the spacing,
+rather than using the “n” or “l” option, either provide a negative spacing or
+swap the start and end values. For example:</p>
+<blockquote>
+<div><p>dRadius  [-1, -2, -0.1]  R</p>
+</div></blockquote>
+<p>or,</p>
+<blockquote>
+<div><p>dRadius  [-2, -1, 0.1]  R</p>
+</div></blockquote>
+<p>rather than <code class="docutils literal notranslate"><span class="pre">dRadius</span> <span class="pre">[-1,</span> <span class="pre">-2,</span> <span class="pre">0.1]</span>&#160; <span class="pre">R</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will NOT check whether a minus option causes
+<code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> to change the units.
+If you use negative values for a parameter that has alternate units for a
+negative option, the outcome will most likely be wrong! You can check the <a class="reference external" href="https://virtualplanetarylaboratory.github.io/vplanet/help.html#input-options">VPLanet documentation</a>
+or by running <code class="docutils literal notranslate"><span class="pre">vplanet</span> <span class="pre">-h</span></code>.</p>
+</div>
+</section>
+<section id="logarithmic-grids">
+<h3>Logarithmic Grids<a class="headerlink" href="#logarithmic-grids" title="Permalink to this headline">¶</a></h3>
+<p>To change the spacing to be logarithmic, use “l” instead of “n”:</p>
+<blockquote>
+<div><p>dSemi  [1, 1000, l10]  a</p>
+</div></blockquote>
+<p>which would generate ten trials, logarithmically spaced, from 1 to 1000.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As described above, you can vary more than one parameter at a time. While this
+can be very useful, <strong>you have the power to generate a large number of files very
+quickly</strong>. Use this feature wisely: test with small numbers first to ensure that files appear
+in the correct locations and that initial conditions are indeed output with
+the desired values (check the histograms).</p>
+</div>
+</section>
+</section>
+<section id="random-mode">
+<h2>Random Mode<a class="headerlink" href="#random-mode" title="Permalink to this headline">¶</a></h2>
+<p>The random mode contains four submodes: <strong>uniform</strong>, <strong>Gaussian</strong>, <strong>sine</strong> and
+<strong>cosine</strong>. The syntax for generating randomly sampled data is similar to grid
+mode, with a few noteable differences. In random mode, one MUST set the variable
+<code class="docutils literal notranslate"><span class="pre">randsize</span></code> to an integer value that is the number of trials:</p>
+<blockquote>
+<div><p>randsize &lt;number of trials&gt;</p>
+</div></blockquote>
+<p>Additionally, it is good practice to seed the random number generator, to allow for
+more easily reproducible results. This initialization is accomplished with the
+variable <code class="docutils literal notranslate"><span class="pre">seed</span></code>:</p>
+<blockquote>
+<div><p>seed &lt;some integer&gt;</p>
+</div></blockquote>
+<section id="uniform-distributions">
+<h3>Uniform Distributions<a class="headerlink" href="#uniform-distributions" title="Permalink to this headline">¶</a></h3>
+<p>A uniform distribution is sampled like so:</p>
+<blockquote>
+<div><p>&lt;option&gt; [&lt;min&gt;, &lt;max&gt;, u] &lt;prefix&gt;</p>
+</div></blockquote>
+<p>where &lt;min&gt; and &lt;max&gt; are the limits.</p>
+</section>
+<section id="gaussian-distributions">
+<h3>Gaussian Distributions<a class="headerlink" href="#gaussian-distributions" title="Permalink to this headline">¶</a></h3>
+<p>For Gaussian/normal distributions, the syntax is:</p>
+<blockquote>
+<div><p>&lt;option&gt; [&lt;mean&gt;, &lt;width/stdev&gt;, g] &lt;prefix&gt;</p>
+</div></blockquote>
+<p>An example would be:</p>
+<blockquote>
+<div><p>dEcc  [0.1, 0.01, g]  e</p>
+</div></blockquote>
+<p>For some parameters, you may want to truncate the distribution at certain values,
+for example, dEcc should not be &lt; 0 or &gt; 1. You can provide cutoffs with 4th and/or
+5th arguments in the brackets with the keywords “min” or “max”:</p>
+<blockquote>
+<div><p>dEcc  [0.1, 0.01, g, min0.0, max1.0]  e</p>
+</div></blockquote>
+<p>You do not need to provide both min and max if you need only one, and their order does
+not matter.</p>
+</section>
+<section id="sine-and-cosine-distributions">
+<h3>Sine and Cosine Distributions<a class="headerlink" href="#sine-and-cosine-distributions" title="Permalink to this headline">¶</a></h3>
+<p>For angles, you may want to sample the sine or cosine of the angle uniformly,
+rather than sampling the angle itself uniformly. You can accomplish this
+with <code class="docutils literal notranslate"><span class="pre">s</span></code> or <code class="docutils literal notranslate"><span class="pre">c</span></code>, for sine and cosine, respectively:</p>
+<blockquote>
+<div><p>&lt;option&gt; [&lt;low angle&gt;, &lt;high angle&gt;, s] &lt;prefix&gt;</p>
+<p>&lt;option&gt; [&lt;low angle&gt;, &lt;high angle&gt;, c] &lt;prefix&gt;</p>
+</div></blockquote>
+<p>Note that &lt;low angle&gt; and &lt;high angle&gt; should be the min and max values of the <strong>ANGLE</strong>,
+not the sine or cosine of the angle.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The units of the angle can be either radians or degrees, but
+must be consistent with your template file.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Caitlyn Wilhelm.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
