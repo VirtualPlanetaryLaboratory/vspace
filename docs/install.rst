@@ -1,17 +1,26 @@
-Installation
-============
-Navigate to the vspace directory (this directory) and run ``python setup.py``. This command places
-some path info in your shell files.
+Installation Guide
+==================
 
-Running VSPACE
---------------
-Run ``VSPACE`` on the command line by typing:
+There are two ways to install ``VSPACE````: 1) in conjunction with 
+`VPLanet <https://github.com/VirtualPlanetaryLaboratory/vplanet>`_ and 
+its other support scripts, or 2) from source.
+
+To install ``VSPACE`` and the other ``VPLanet`` packages, use the command:
 
 .. code-block:: bash
 
-    vspace <input file>
+    python -m pip install vplanet
 
-where the input file contains a set of instructions to build the simulations. This
-will create a subdirectory containing a) additional subdirectories for each trial,
-b) histograms of each varied parameter, and c) a log file containing the value
-of each varied parameter in the trial subdirectories.
+To install from source, first close the repo:
+
+
+.. code-block:: bash
+
+    git clone https://github.com/VirtualPlanetaryLaboratory/vspace.git
+
+and then go into the directory (vspace) and run the setup script:
+
+.. code-block:: bash
+
+    cd vspace
+    python setup.py install

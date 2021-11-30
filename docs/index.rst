@@ -9,7 +9,8 @@ limits and with either linear or logarithmic spacings. In **Random Mode** the
 distributions are random, but can be **uniform, Gaussian** or uniform in **sine**
 or **cosine**. Non-uniform distributions can be easily truncated, if necessary.
 Histograms of the initial conditions will also be built. After generating the
-trials, use the `multi-planet <../multi-planet>`_ script to run.
+trials, use the `multi-planet <https://github.com/VirtualPlanetaryLaboratory/multi-planet>`_ 
+script to run.
 
 .. toctree::
    :maxdepth: 1
@@ -17,3 +18,10 @@ trials, use the `multi-planet <../multi-planet>`_ script to run.
    install
    help
    GitHub <https://github.com/VirtualPlanetaryLaboratory/vspace>
+
+.. note::
+
+    To maximize ``vspace``'s power, run ``mulit-planet`` with the ``-bp`` flag to automatically
+    build a bigplanet archive immediately after the simualtions finish.  Then create 
+    bigplanet files from the archive as needed, and use ``bigplanet``'s `scripting functions <https://virtualplanetarylaboratory.github.io/bigplanet/Script.html>`_ to 
+    extract vectors and matrices for plotting, statistical analyses, etc.

@@ -1,211 +1,84 @@
-The Input File
-==============
+Input Files
+===========
+
+vspace.in
+---------
+
 The input file contains a list of template files and all the ``VPLanet`` options to vary.
 An example input file, called ``vspace.in``, is included in this directory and its
-lines are described below and is based off the `IoHeat example <../examples/IoHeat>`_.
+lines are described below and is based off the 
+`IoHeat example <https://virtualplanetarylaboratory.github.io/vplanet/examples/IoHeat.html>`_.
 
-The first line is
+.. code-block:: bash
+    :linenos:
 
-    srcfolder <path-to-template-files>
+    srcfolder .
+    destfolder data
+    trialname  ioheat_
 
-This provides ``VSPACE`` with the location of a directory that contains the template
-``VPLanet`` input files, such as vpl.in, star.in, etc. The format of the input files
-is slightly different when used with ``VSPACE`` as described below.
-
-The next line is
-
-    destfolder <path-to-output>
-
-which is the name of a subdirectory that will contain all the initial conditions for the parameter sweep.
-
-The next line is
-
-    trialname  <prefix>
-
-which specifies the prefix for subdirectories of the the parameter sweep. The prefix defaults
-to "default" if this command is not included.
-
-With these top-level commands executed, the remaining lines describe how the
-individual parameters are to be varied, and completes the names of the trial directories.
-In the example ``vspace.in`` file, these lines are
+    file   vpl.in
 
     file   jupiter.in
 
     file   io.in
-
     dEcc  [0.001,0.005,n5] ecc
-
     dObliquity [0,10,n5] obl
 
-    file   vpl.in
+The first line provides ``VSPACE`` with the location of a directory that contains the template
+``VPLanet`` input files, such as vpl.in, star.in, etc. The format of these files
+is slightly different when used with ``VSPACE`` then when used with a single ``VPlanet`` run (see below).
 
-The general syntax for these lines are:
+
+Line 2 presents the name of the subdirectory that will contain all the initial conditions for 
+the parameter sweep. In other words, a new directory called "data" will be created.
+
+Line 3 specifies a prefix for subdirectories in the *destfolder*. If this option is not set, the prefix is
+set to "default". With these top-level commands executed, the remaining lines describe how the
+individual parameters are to be varied and completes the names of the trial directories. The general 
+syntax for these lines are:
+
+.. code-block:: bash
 
     file <name>
-
-    <option> <sampling rules> <identifier>
-
-    <option> <sampling rules> <identifier>
-
+    <option> <sampling rule> <identifier>
+    <option> <sampling rule> <identifier>
     ...
 
-where <name> is the name of the input file. The next lines describe how individual
-options are varied. <option> is the name of the ``VPLanet``
-input option (exact match required), the <sampling rules> describe the manner in
-which the parameter is distributed (described in more detail below in the ``Sampling
-Rules`` section), and <identifier> is a string that is appended to the trialname
+where <name> is the name of the input file, <option> is the name of a ``VPLanet``
+input option (exact match required), <sampling rule> sets how the values of the option 
+are to be sampled (described in more detail below in the `Sampling
+Rules <sampling>`_ section), and <identifier> is a string that is appended to the trialname
 prefix in the destfolder subdirectories. ``VSPACE`` will vary all parameters listed
 after a "file" command until it reaches the next "file" command or the end of the
-file.
+file. In this case the "n5" rule tells ``VSPACE`` to create 5 evenly space values of dEcc between 0.001
+and 0.005.
 
 This example will create subdirectories with names like
 
-    test/trial_ecc0obl0
+.. code-block:: bash
 
-with files jupiter.in, io.in, and vpl.in that would be identical to those files
-in the srcfolder **except** dEcc and dObliquity would have values that follow the
-sampling rules in io.in. The numbers after each <identifier> uniquely identifies the
+    data/ioheat_ecc0obl0
+
+each with the files jupiter.in, io.in, and vpl.in that would be identical to those files
+in the srcfolder, **except** dEcc and dObliquity would have values that follow the
+sampling rules. The numbers after each <identifier> uniquely identifies the
 subdirectory.
 
 Once the directories have been created, they can all be executed with a single command
-using the `multi-planet <../multi-planet>`_ script.
+using the `multi-planet <https://github.com/VirtualPlanetaryLaboratory/multi-planet>`_ script and
+the vspace.in file.
 
-You can additionally remove options from a source file with the following command:
+Template Files
+--------------
+
+The template files are nearly identical to standard ``VPLanet`` input files except
+that they should not include the parameters to be varied. 
+
+You can additionally instruct ``VSPACE`` to remove options from a template file with by including a line in
+vspace.in like: 
+
+.. code-block:: bash
 
     rm <option name>
 
-For the time being, this merely comments out the matching line.
-
-Sampling Rules
-==============
-``VSPACE`` has two sampling modes: **grid** and **random**, which are specified with the word
-"samplemode". For example:
-
-    samplemode random
-
-will allow you to generate trials that are randomly distributed.
-
-Grid Mode
----------
-``VSPACE`` allows for 3 submodes to generate trials that explore a gridded parameter
-space, i.e even spacing. These submodes are **explicit**, **linear**, and
-**logarithmic**. Each adheres the following syntax:
-
-    <option> [start, end, spacing] <identifier>
-
-In all modes the "start" and "end" values represent the limits of the parameter
-to be surveyed and are inclusive of the end points.
-
-Explicit Submode
-^^^^^^^^^^^^^^^^
-In this grid submode, the "spacing" value is just a number that represents the
-interval in between trials.``VSPACE`` will create as many trials as necessary
-to follow the sampling rules, and will not necessarily include a trial at the
-end value. For example, to generate trials that vary ``dSemi`` from 1 to 2
-with a spacing of 0.1, the syntax is:
-
-    dSemi  [1, 2, 0.1]  a
-
-Linear Submode
-^^^^^^^^^^^^^^
-To sample the grid linearly with a specific number of trials
-that are evenly spaced, change the spacing to be an "n" followed
-by an integer that represents the number of values to generate. For example, the
-previous example could be rewritten as
-
-    dSemi  [1, 2, n11]  a
-
-which would generate 11 trials, equally spaced, from 1 to 2, i.e. every 0.1.
-
-Negative values are allowed, but if you are providing the spacing,
-rather than using the "n" or "l" option, either provide a negative spacing or
-swap the start and end values. For example:
-
-    dRadius  [-1, -2, -0.1]  R
-
-or,
-
-    dRadius  [-2, -1, 0.1]  R
-
-rather than ``dRadius [-1, -2, 0.1]  R``.
-
-**NOTE:** ``VSPACE`` will NOT check whether a minus option causes
-``VPLanet`` to change the units, so make sure you check ``vplanet -h``.
-If you use negative values for a parameter that has alternate units for a
-negative option, the outcome will most likely be wrong!
-
-Logarithmic Submode
-^^^^^^^^^^^^^^^^^^^
-To change the spacing to be logarithmic, use "l" instead of "n":
-
-    dSemi  [1, 1000, l10]  a
-
-which would generate ten trials, logarithmically spaced, from 1 to 1000.
-
-**Pro Tip**: As described above, you can vary more than one parameter at a time. While this
-can be very useful, **you have the power to generate a large number of files very
-quickly**. Use this feature wisely: test with small numbers first to ensure that files appear
-in the correct locations and that initial conditions are indeed output with
-the desired values (check the histograms).
-
-Random Mode
------------
-The random mode contains four submodes: **uniform**, **Gaussian**, **sine** and
-**cosine**. The syntax for generating randomly sampled data is similar to grid
-mode, with a few noteable differences. In random mode, one MUST set the variable
-``randsize`` to an integer value that is the number of trials:
-
-    randsize <number of trials>
-
-Additionally, it is good practice to seed the random number generator, to allow for
-more easily reproducible results. This initialization is accomplished with the
-variable ``seed``:
-
-    seed <some integer>
-
-Uniform Submode
-^^^^^^^^^^^^^^^
-A uniform distribution is sampled like so:
-
-        <option> [<min>, <max>, u] <prefix>
-
-where <min> and <max> are the limits.
-
-Gaussian Submode
-^^^^^^^^^^^^^^^^
-For Gaussian/normal distributions, the syntax is:
-
-    <option> [<mean>, <width/stdev>, g] <prefix>
-
-An example would be:
-
-    dEcc  [0.1, 0.01, g]  e
-
-For some parameters, you may want to truncate the distribution at certain values,
-for example, dEcc should not be < 0 or > 1. You can provide cutoffs with 4th and/or
-5th arguments in the brackets with the keywords "min" or "max":
-
-    dEcc  [0.1, 0.01, g, min0.0, max1.0]  e
-
-You do not need to provide both min and max if you need only one, and the order does
-not matter.
-
-Sine and Cosine Submodes
-^^^^^^^^^^^^^^^^^^^^^^^^
-For angles, you may want to sample the sine or cosine of the angle uniformly,
-rather than sampling the angle itself uniformly. You can accomplish this
-with ``s`` or ``c``, for sine and cosine respectively:
-
-    <option> [<low angle>, <high angle>, s] <prefix>
-
-    <option> [<low angle>, <high angle>, c] <prefix>
-
-Note that <low angle> and <high angle> should be the min and max values of the ANGLE,
-not the sine or cosine of the angle. **NOTE**: The units of the angle can be either radians or degrees, but
-must be consistent with your primary input file, usually ``vpl.in`` -- ``VSPACE`` determines the unit from
-this file.
-
-Template Files
-==============
-The template files are nearly identical to standard ``VPLanet`` input files except
-that they should not include the parameters to be varied.  
+``VSPACE`` will merely comments out the matching line.
