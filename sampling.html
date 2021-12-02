@@ -150,7 +150,7 @@
             
   <section id="sampling-rules">
 <h1>Sampling Rules<a class="headerlink" href="#sampling-rules" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> has two sampling modes: <strong>grid</strong> and <strong>random</strong>, which are specified with the word
+<p><code class="docutils literal notranslate"><span class="pre">vspace</span></code> has two sampling modes: <strong>grid</strong> and <strong>random</strong>, which are specified with the word
 “samplemode” in the input file (vspace.in). For example:</p>
 <blockquote>
 <div><p>samplemode random</p>
@@ -159,7 +159,7 @@
 is not set, the default is grid mode.</p>
 <section id="grid-mode">
 <h2>Grid Mode<a class="headerlink" href="#grid-mode" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> allows for 3 submodes to generate trials that explore a gridded parameter
+<p><code class="docutils literal notranslate"><span class="pre">vspace</span></code> allows for 3 submodes to generate trials that explore a gridded parameter
 space, i.e even spacing. These submodes are <strong>explicit</strong>, <strong>linear</strong>, and
 <strong>logarithmic</strong>. Each adheres the following syntax:</p>
 <blockquote>
@@ -171,7 +171,7 @@ used in directory names.</p>
 <section id="explicit-grids">
 <h3>Explicit Grids<a class="headerlink" href="#explicit-grids" title="Permalink to this headline">¶</a></h3>
 <p>In this grid submode, the “spacing” value is just a number that represents the
-interval in between trials. <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will create as many trials as necessary
+interval in between trials. <code class="docutils literal notranslate"><span class="pre">vspace</span></code> will create as many trials as necessary
 to follow the sampling rules, and will not necessarily include a trial at the
 end value. For example, to generate trials that vary <code class="docutils literal notranslate"><span class="pre">dSemi</span></code> from 1 to 2
 with a spacing of 0.1, the syntax is:</p>
@@ -202,7 +202,7 @@ swap the start and end values. For example:</p>
 <p>rather than <code class="docutils literal notranslate"><span class="pre">dRadius</span> <span class="pre">[-1,</span> <span class="pre">-2,</span> <span class="pre">0.1]</span>&#160; <span class="pre">R</span></code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will NOT check whether a minus option causes
+<p><code class="docutils literal notranslate"><span class="pre">vspace</span></code> will NOT check whether a minus option causes
 <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> to change the units.
 If you use negative values for a parameter that has alternate units for a
 negative option, the outcome will most likely be wrong! You can check the <a class="reference external" href="https://virtualplanetarylaboratory.github.io/vplanet/help.html#input-options">VPLanet documentation</a>
@@ -294,7 +294,7 @@ must be consistent with your template file.</p>
 </section>
 <section id="histograms">
 <h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
-<p>If running in random mode, <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will automatically generate histograms of the varied parameters.
+<p>If running in random mode, <code class="docutils literal notranslate"><span class="pre">vspace</span></code> will automatically generate histograms of the varied parameters.
 In the <em>destfolder</em> will be PNG files with plots of each parameter’s distribution. These plots are not
 publication ready, but can be used to verify that the distributions created match your expectations.</p>
 </section>

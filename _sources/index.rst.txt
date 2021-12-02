@@ -1,9 +1,9 @@
-VSPACE Documentation
+vspace Documentation
 ====================
-``VSPACE`` is a tool to build input files for a parameter sweep with ``VPLanet``, creating
+``vspace`` is a tool to build input files for a parameter sweep with ``VPLanet``, creating
 a set of individual directories that contain ``VPLanet`` input files that are ready to be simulated.
 
-With ``VSPACE`` you can quickly and easily build input files with specific
+With ``vspace`` you can quickly and easily build input files with specific
 parameters with a specific type of distribution. In **Grid Mode** you can build
 input files in which the initial conditions have regular spacings within specified
 limits and with either linear or logarithmic spacings. In **Random Mode** the
@@ -24,6 +24,6 @@ script to run.
 .. note::
 
     To maximize ``vspace``'s power, run ``mulit-planet`` with the ``-bp`` flag to automatically
-    build a bigplanet archive immediately after the simualtions finish.  Then create 
+    build a bigplanet archive immediately after the simulations finish.  Then create 
     bigplanet files from the archive as needed, and use ``bigplanet``'s `scripting functions <https://virtualplanetarylaboratory.github.io/bigplanet/Script.html>`_ to 
     extract vectors and matrices for plotting, statistical analyses, etc.
