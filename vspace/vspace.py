@@ -140,12 +140,12 @@ def main():
         elif lines[i].split()[0] == "sUnitAngle":
             #read in user specified angle unit
             angUnit = lines[i].split()[1]
-        elif lines[i].split()[0] == "iNumSims":
+        elif lines[i].split()[0] == "iNumTrials":
             #read in number of random simulations to generate
             if np.float(lines[i].split()[1]).is_integer():
                 randsize = np.int(lines[i].split()[1])
             else:
-                raise IOError("Attempt to pass non-integer value to iNumSims")
+                raise IOError("Attempt to pass non-integer value to iNumTrials")
 
     #^ end first pass through input file ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

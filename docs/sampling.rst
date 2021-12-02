@@ -2,9 +2,11 @@ Sampling Rules
 ==============
 
 ``VSPACE`` has two sampling modes: **grid** and **random**, which are specified with the word
-"samplemode" in the input file (vspace.in). For example:
+"sSampleMode" in the input file (vspace.in). For example:
 
-    samplemode random
+.. code-block:: bash
+
+    sSampleMode random
 
 will allow you to generate trials that are randomly distributed by a "sampling rule". If *samplemode* 
 is not set, the default is grid mode.
@@ -15,6 +17,8 @@ Grid Mode
 ``VSPACE`` allows for 3 submodes to generate trials that explore a gridded parameter
 space, i.e even spacing. These submodes are **explicit**, **linear**, and
 **logarithmic**. Each adheres the following syntax:
+
+.. code-block:: bash
 
     <option> [start, end, spacing] <identifier>
 
@@ -31,6 +35,8 @@ to follow the sampling rules, and will not necessarily include a trial at the
 end value. For example, to generate trials that vary ``dSemi`` from 1 to 2
 with a spacing of 0.1, the syntax is:
 
+.. code-block:: bash
+
     dSemi  [1, 2, 0.1]  a
 
 Linear Grids
@@ -41,6 +47,8 @@ that are evenly spaced, the spacing argument must star with an "n" followed
 by an integer that represents the number of values to generate. For example, the
 previous example could be rewritten as
 
+.. code-block:: bash
+
     dSemi  [1, 2, n11]  a
 
 which would generate 11 trials, equally spaced, from 1 to 2, i.e. every 0.1.
@@ -49,9 +57,13 @@ Negative values are allowed, but if you are providing the spacing,
 rather than using the "n" or "l" option, either provide a negative spacing or
 swap the start and end values. For example:
 
+.. code-block:: bash    
+    
     dRadius  [-1, -2, -0.1]  R
 
 or,
+
+.. code-block:: bash
 
     dRadius  [-2, -1, 0.1]  R
 
@@ -69,6 +81,8 @@ Logarithmic Grids
 ^^^^^^^^^^^^^^^^^^^
 To change the spacing to be logarithmic, use "l" instead of "n":
 
+.. code-block:: bash 
+  
     dSemi  [1, 1000, l10]  a
 
 which would generate ten trials, logarithmically spaced, from 1 to 1000.
@@ -87,15 +101,19 @@ Random Mode
 The random mode contains four submodes: **uniform**, **Gaussian**, **sine** and
 **cosine**. The syntax for generating randomly sampled data is similar to grid
 mode, with a few noteable differences. In random mode, one MUST set the variable
-``randsize`` to an integer value that is the number of trials:
+``iNumTrials`` to an integer value that is the number of trials:
 
-    randsize <number of trials>
+.. code-block:: bash 
+  
+    iNumTrials <number of trials>
 
 Additionally, it is good practice to seed the random number generator, to allow for
 more easily reproducible results. This initialization is accomplished with the
 variable ``seed``:
 
-    seed <integer>
+.. code-block:: bash 
+  
+    iSeed <integer>
 
 With these options set, we can now specify how each parameter is varied.
 
@@ -108,6 +126,8 @@ Uniform Distributions
 
 A uniform distribution is sampled like so:
 
+.. code-block:: bash 
+  
         <option> [<min>, <max>, u] <prefix>
 
 where <min> and <max> are the limits. Since the number of trials is set by the *randsize* option,
@@ -118,16 +138,22 @@ Gaussian Distributions
 
 For Gaussian/normal distributions, the syntax is:
 
+.. code-block:: bash 
+  
     <option> [<mean>, <width/stdev>, g] <prefix>
 
 An example would be:
 
+.. code-block:: bash 
+  
     dEcc  [0.1, 0.01, g]  e
 
 For some parameters, you may want to truncate the distribution at certain values,
 for example, dEcc should not be < 0 or > 1. You can provide cutoffs with 4th and/or
 5th arguments in the brackets with the keywords "min" or "max":
 
+.. code-block:: bash 
+  
     dEcc  [0.1, 0.01, g, min0.0, max1.0]  e
 
 You do not need to provide both min and max if you need only one, and their order does
@@ -140,6 +166,8 @@ For angles, you may want to sample the sine or cosine of the angle uniformly,
 rather than sampling the angle itself uniformly. You can accomplish this
 with ``s`` or ``c``, for sine and cosine, respectively:
 
+.. code-block:: bash 
+  
     <option> [<low angle>, <high angle>, s] <prefix>
 
     <option> [<low angle>, <high angle>, c] <prefix>
