@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Input Files &mdash; vspace 1.0 documentation</title>
+  <title>Running VSPACE &mdash; vspace 1.0 documentation</title>
   
 
   
@@ -87,7 +87,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Input Files</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running VSPACE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#vspace-in">vspace.in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#template-files">Template Files</a></li>
 </ul>
@@ -125,7 +125,7 @@
     <li><a href="index.html">VPLanet</a> &raquo;</li>
       
     
-      <li>Input Files</li>
+      <li>Running VSPACE</li>
     
       <li class="wy-breadcrumbs-aside">
         
@@ -138,8 +138,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="input-files">
-<h1>Input Files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h1>
+  <section id="running-vspace">
+<h1>Running VSPACE<a class="headerlink" href="#running-vspace" title="Permalink to this headline">¶</a></h1>
+<p>Run vspace with the command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vspace &lt;file&gt;
+</pre></div>
+</div>
+<p>where <em>file</em> is an ASCII text file that contains instructions on how to build the parameter space.
+This file is typically called <code class="docutils literal notranslate"><span class="pre">vspace.in</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">`multi-planet</span></code> script &lt;<a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/multi-planet">https://github.com/VirtualPlanetaryLaboratory/multi-planet</a>&gt;`_ also uses <code class="docutils literal notranslate"><span class="pre">vspace</span></code> input file.</p>
+</div>
 <section id="vspace-in">
 <h2>vspace.in<a class="headerlink" href="#vspace-in" title="Permalink to this headline">¶</a></h2>
 <p>The input file contains a list of template files and all the <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> options to vary.
@@ -232,7 +242,7 @@ vspace.in like:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, Caitlyn Wilhelm.
+        &copy; Copyright 2021, The VPLanet Team.
 
     </p>
   </div>
