@@ -1,7 +1,7 @@
 Sampling Rules
 ==============
 
-``VSPACE`` has two sampling modes: **grid** and **random**, which are specified with the word
+``vspace`` has two sampling modes: **grid** and **random**, which are specified with the word
 "samplemode" in the input file (vspace.in). For example:
 
     samplemode random
@@ -12,7 +12,7 @@ is not set, the default is grid mode.
 Grid Mode
 ---------
 
-``VSPACE`` allows for 3 submodes to generate trials that explore a gridded parameter
+``vspace`` allows for 3 submodes to generate trials that explore a gridded parameter
 space, i.e even spacing. These submodes are **explicit**, **linear**, and
 **logarithmic**. Each adheres the following syntax:
 
@@ -26,7 +26,7 @@ Explicit Grids
 ^^^^^^^^^^^^^^
 
 In this grid submode, the "spacing" value is just a number that represents the
-interval in between trials. ``VSPACE`` will create as many trials as necessary
+interval in between trials. ``vspace`` will create as many trials as necessary
 to follow the sampling rules, and will not necessarily include a trial at the
 end value. For example, to generate trials that vary ``dSemi`` from 1 to 2
 with a spacing of 0.1, the syntax is:
@@ -59,7 +59,7 @@ rather than ``dRadius [-1, -2, 0.1]  R``.
 
 .. warning::
     
-    ``VSPACE`` will NOT check whether a minus option causes
+    ``vspace`` will NOT check whether a minus option causes
     ``VPLanet`` to change the units.
     If you use negative values for a parameter that has alternate units for a
     negative option, the outcome will most likely be wrong! You can check the `VPLanet documentation <https://virtualplanetarylaboratory.github.io/vplanet/help.html#input-options>`_
@@ -155,6 +155,6 @@ not the sine or cosine of the angle.
 Histograms
 ----------
 
-If running in random mode, ``VSPACE`` will automatically generate histograms of the varied parameters.
+If running in random mode, ``vspace`` will automatically generate histograms of the varied parameters.
 In the *destfolder* will be PNG files with plots of each parameter's distribution. These plots are not
 publication ready, but can be used to verify that the distributions created match your expectations.

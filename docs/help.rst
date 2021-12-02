@@ -24,9 +24,9 @@ lines are described below and is based off the
     dEcc  [0.001,0.005,n5] ecc
     dObliquity [0,10,n5] obl
 
-The first line provides ``VSPACE`` with the location of a directory that contains the template
+The first line provides ``vspace`` with the location of a directory that contains the template
 ``VPLanet`` input files, such as vpl.in, star.in, etc. (see below). The format of these files
-is slightly different when used with ``VSPACE`` then when used with a single ``VPlanet`` run.
+is slightly different when used with ``vspace`` then when used with a single ``VPlanet`` run.
 
 
 Line 2 presents the name of the subdirectory that will contain all the initial conditions for 
@@ -48,11 +48,11 @@ where <name> is the name of the input file, <option> is the name of a ``VPLanet`
 input option (exact match required), <sampling rule> sets how the values of the option 
 are to be sampled (see the `Sampling
 Rules <sampling>`_ section), and <identifier> is a string that is appended to the trialname
-prefix in the destfolder subdirectories. ``VSPACE`` will vary all parameters listed
+prefix in the destfolder subdirectories. ``vspace`` will vary all parameters listed
 after a "file" command until it reaches the next "file" command or the end of the
 file. In this example we are not varying any options for vpl.in or jupiter.in, so they have no options
-listed. However they must still be included to inform ``VSPACE`` that they should be copied into the 
-trial directories. In this case, "n5" tells ``VSPACE`` to create 5 evenly spaced values of dEcc between 0.001
+listed. However they must still be included to inform ``vspace`` that they should be copied into the 
+trial directories. In this case, "n5" tells ``vspace`` to create 5 evenly spaced values of dEcc between 0.001
 and 0.005.
 
 .. note::
@@ -80,11 +80,11 @@ Template Files
 The template files are nearly identical to standard ``VPLanet`` input files except
 that they should not include the parameters to be varied. 
 
-You can additionally instruct ``VSPACE`` to remove options from a template file with by including a line in
+You can additionally instruct ``vspace`` to remove options from a template file with by including a line in
 vspace.in like: 
 
 .. code-block:: bash
 
     rm <option name>
 
-``VSPACE`` will merely comments out the matching line.
+``vspace`` will merely comments out the matching line.
