@@ -12,7 +12,7 @@ This file is typically called ``vspace.in``.
 
 .. note::
 
-    The ```multi-planet`` script <https://github.com/VirtualPlanetaryLaboratory/multi-planet>`_ also uses ``vspace`` input file.
+    The `multi-planet script <https://github.com/VirtualPlanetaryLaboratory/multi-planet>`_ also uses ``vspace``'s input file.
 
 vspace.in
 ---------
