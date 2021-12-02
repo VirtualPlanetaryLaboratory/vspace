@@ -1,4 +1,4 @@
-Running VSPACE
+Running vspace
 ==============
 
 Run vspace with the command
