@@ -1,5 +1,18 @@
-Input Files
-===========
+Running VSPACE
+==============
+
+Run vspace with the command
+
+.. code-block:: bash
+
+    vspace <file>
+
+where *file* is an ASCII text file that contains instructions on how to build the parameter space.
+This file is typically called ``vspace.in``.
+
+.. note::
+
+    The ```multi-planet`` script <https://github.com/VirtualPlanetaryLaboratory/multi-planet>`_ also uses ``vspace`` input file.
 
 vspace.in
 ---------
