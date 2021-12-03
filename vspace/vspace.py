@@ -69,13 +69,13 @@ def main():
     for i in range(len(lines)):
         if lines[i].split() == []:
             pass  # nothing on this line
-        elif lines[i].split()[0] == "sSrcFolder":
+        elif lines[i].split()[0] == "sSrcFolder" or lines[i].split()[0] == "srcfolder":
             #read the folder containing template vplanet *.in files
             src = lines[i].split()[1]
             if "~" in src:  #you can specify a path relative to home directory
                 src = os.path.expanduser(src)
 
-        elif lines[i].split()[0] == "sDestFolder":
+        elif lines[i].split()[0] == "sDestFolder" or lines[i].split()[0] == "destfolder":
             #read the destination folder for resulting input files
             dest = lines[i].split()[1]
             if "~" in dest:  #you can specify a path relative to home directory
@@ -112,10 +112,10 @@ def main():
                     if reply[:1] == "n":
                         exit()
 
-        elif lines[i].split()[0] == "sTrialName":
+        elif lines[i].split()[0] == "sTrialName" or lines[i].split()[0] == "trialname":
             #read in descriptive name for trials within destination folder
             trial = lines[i].split()[1]
-        elif lines[i].split()[0] == "sSampleMode":
+        elif lines[i].split()[0] == "sSampleMode" or lines[i].split()[0] == "samplemode":
             #read in sampling mode choice
             modename = lines[i].split()[1]
             if modename.startswith("g") or modename.startswith("G"):
@@ -133,14 +133,14 @@ def main():
                 np.random.seed(np.int(lines[i].split()[1]))
             else:
                 raise IOError("Attempt to pass non-integer value to seed")
-        elif lines[i].split()[0] == "sBodyFile" or lines[i].split()[0] == "sPrimaryFile":
+        elif lines[i].split()[0] == "sBodyFile" or lines[i].split()[0] == "sPrimaryFile" or lines[i].split()[0] == "file":
             #read in name of template *.in file to copy and add to new sims
             flist.append(lines[i].split()[1])
             fline.append(i)
         elif lines[i].split()[0] == "sUnitAngle":
             #read in user specified angle unit
             angUnit = lines[i].split()[1]
-        elif lines[i].split()[0] == "iNumTrials":
+        elif lines[i].split()[0] == "iNumTrials" or lines[i].split()[0] == "randsize":
             #read in number of random simulations to generate
             if np.float(lines[i].split()[1]).is_integer():
                 randsize = np.int(lines[i].split()[1])
