@@ -1,6 +1,6 @@
-srcfolder  .
-destfolder Explict_Test
-trialname  semi_
+sSrcFolder  .
+sDestFolder Explict_Test
+sTrialName  semi_
 
-file   earth.in
+sBodyFile   earth.in
 dSemi [1, 2, 0.1] a

@@ -1,6 +1,6 @@
-srcfolder  .
-destfolder Linear_Test
-trialname  semi_
+sSrcFolder  .
+sDestFolder Linear_Test
+sTrialName  semi_
 
-file   earth.in
+sBodyFile   earth.in
 dSemi [1, 2, n11] a

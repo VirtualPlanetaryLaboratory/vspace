@@ -25,15 +25,15 @@ lines are described below and is based off the
 .. code-block:: bash
     :linenos:
 
-    srcfolder .
-    destfolder data
-    trialname  ioheat
+    sSrcFolder .
+    sDestFolder data
+    sTrialName  ioheat
 
-    file   vpl.in
+    sPrimaryFile   vpl.in
 
-    file   jupiter.in
+    sBodyFile   jupiter.in
 
-    file   io.in
+    sBodyFile   io.in
     dEcc  [0.001,0.005,n5] ecc
     dObliquity [0,10,n5] obl
 
@@ -52,12 +52,15 @@ syntax for these lines are:
 
 .. code-block:: bash
 
-    file <name>
+    <filetype> <name>
     <option> [sampling rules] <identifier>
     <option> [sampling rules] <identifier>
     ...
 
-where <name> is the name of the input file, <option> is the name of a ``VPLanet``
+where <filetype> is either two options: ``sBodyFile`` or ``sPrimaryFile``. 
+``sBodyFile`` is if the input file it is a body in the simulation (such as the star and the planets),
+while ``sPrimaryFile`` is the file that has simulation options (the default is vpl.in).
+<name> is the name of the input file, <option> is the name of a ``VPLanet``
 input option (exact match required), <sampling rule> sets how the values of the option 
 are to be sampled (see the `Sampling
 Rules <sampling>`_ section), and <identifier> is a string that is appended to the trialname
