@@ -156,15 +156,15 @@ This file is typically called <code class="docutils literal notranslate"><span c
 An example input file, called <code class="docutils literal notranslate"><span class="pre">vspace.in</span></code>, is included in this directory and its
 lines are described below and is based off the
 <a class="reference external" href="https://virtualplanetarylaboratory.github.io/vplanet/examples/IoHeat.html">IoHeat example</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>srcfolder .
-<span class="linenos"> 2</span>destfolder data
-<span class="linenos"> 3</span>trialname  ioheat
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>sSrcFolder .
+<span class="linenos"> 2</span>sDestFolder data
+<span class="linenos"> 3</span>sTrialName  ioheat
 <span class="linenos"> 4</span>
-<span class="linenos"> 5</span>file   vpl.in
+<span class="linenos"> 5</span>sPrimaryFile   vpl.in
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span>file   jupiter.in
+<span class="linenos"> 7</span>sBodyFile   jupiter.in
 <span class="linenos"> 8</span>
-<span class="linenos"> 9</span>file   io.in
+<span class="linenos"> 9</span>sBodyFile   io.in
 <span class="linenos">10</span>dEcc  <span class="o">[</span><span class="m">0</span>.001,0.005,n5<span class="o">]</span> ecc
 <span class="linenos">11</span>dObliquity <span class="o">[</span><span class="m">0</span>,10,n5<span class="o">]</span> obl
 </pre></div>
@@ -178,13 +178,16 @@ the parameter sweep. In other words, a new directory called “data” will be c
 set to “default”. With these top-level commands executed, the remaining lines describe how the
 individual parameters are to be varied and completes the names of the trial directories. The general
 syntax for these lines are:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>file &lt;name&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;filetype&gt; &lt;name&gt;
 &lt;option&gt; <span class="o">[</span>sampling rules<span class="o">]</span> &lt;identifier&gt;
 &lt;option&gt; <span class="o">[</span>sampling rules<span class="o">]</span> &lt;identifier&gt;
 ...
 </pre></div>
 </div>
-<p>where &lt;name&gt; is the name of the input file, &lt;option&gt; is the name of a <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code>
+<p>where &lt;filetype&gt; is either two options: <code class="docutils literal notranslate"><span class="pre">sBodyFile</span></code> or <code class="docutils literal notranslate"><span class="pre">sPrimaryFile</span></code>.
+<code class="docutils literal notranslate"><span class="pre">sBodyFile</span></code> is if the input file it is a body in the simulation (such as the star and the planets),
+while <code class="docutils literal notranslate"><span class="pre">sPrimaryFile</span></code> is the file that has simulation options (the default is vpl.in).
+&lt;name&gt; is the name of the input file, &lt;option&gt; is the name of a <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code>
 input option (exact match required), &lt;sampling rule&gt; sets how the values of the option
 are to be sampled (see the <a class="reference external" href="sampling">Sampling
 Rules</a> section), and &lt;identifier&gt; is a string that is appended to the trialname
