@@ -701,68 +701,68 @@ def main():
                     fIn.close()               #close it
 
                     # create file out (new .in file)
-                    fOut = open(os.path.join(destfull, flist[i]), "w")
+                    with open(os.path.join(destfull, flist[i]), "w") as fOut:
 
-                    for j in range(len(dlines)):
-                        #loop over lines of .in file to check for matches with user set parameters
+                        for j in range(len(dlines)):
+                            #loop over lines of .in file to check for matches with user set parameters
+                            for k in range(len(spref)):
+                                #loop over lines in input file corresponding to this .in file
+                                if dlines[j].split() != []: #skip empty lines
+                                    if dlines[j].split()[0] == spref[k]:
+                                        #found a match!
+                                        sflag[
+                                            k
+                                        ] = 1  # option in file to be copied matched with option from inputf
+                                        dlines[j] = slines[k]   #set line in new .in file
+                                        for m in range(len(iter_file)):
+                                            if (
+                                                iter_file[m] == i
+                                                and iter_name[m] == dlines[j].split()[0]
+                                            ):
+                                                #loop through values to be set in this permutation
+                                                #if correct file and param name
+                                                #then add that value to the line to be written
+                                                dlines[j] = (
+                                                    dlines[j].split()[0] + " " + str(tup[m])
+                                                )
+                                        if dlines[j][-1] != "\n" and j < (len(dlines) - 1):
+                                            dlines[j] = (
+                                                dlines[j] + "\n"
+                                            )  # add a newline, just in case
+                                    elif slines[k].split()[0] == "rm":
+                                        # remove an option by placing a comment!
+                                        if dlines[j].split()[0] == slines[k].split()[1]:
+                                            dlines[j] = "#" + dlines[j]
+                                            sflag[k] = 1
+
+                            fOut.write(dlines[j])  # write to the copied file
+
                         for k in range(len(spref)):
-                            #loop over lines in input file corresponding to this .in file
-                            if dlines[j].split() != []: #skip empty lines
-                                if dlines[j].split()[0] == spref[k]:
-                                    #found a match!
-                                    sflag[
-                                        k
-                                    ] = 1  # option in file to be copied matched with option from inputf
-                                    dlines[j] = slines[k]   #set line in new .in file
+                            # check if any were not already present in the copied file, then write them
+                            if sflag[k] < 0:
+                                if slines[k].split()[0] == "rm":
+                                    #user tried to delete an option that did not exist
+                                    raise IOError(
+                                        "No option '%s' to be removed in file %s."
+                                        % (slines[k].split()[1], flist[i])
+                                    )
+                                else:
+                                    #create new option for destination file
+                                    tmp = slines[k]
                                     for m in range(len(iter_file)):
                                         if (
                                             iter_file[m] == i
-                                            and iter_name[m] == dlines[j].split()[0]
+                                            and iter_name[m] == slines[k].split()[0]
                                         ):
                                             #loop through values to be set in this permutation
                                             #if correct file and param name
                                             #then add that value to the line to be written
-                                            dlines[j] = (
-                                                dlines[j].split()[0] + " " + str(tup[m])
-                                            )
-                                    if dlines[j][-1] != "\n" and j < (len(dlines) - 1):
-                                        dlines[j] = (
-                                            dlines[j] + "\n"
-                                        )  # add a newline, just in case
-                                elif slines[k].split()[0] == "rm":
-                                    # remove an option by placing a comment!
-                                    if dlines[j].split()[0] == slines[k].split()[1]:
-                                        dlines[j] = "#" + dlines[j]
-                                        sflag[k] = 1
+                                            tmp = slines[k].split()[0] + " " + str(tup[m])
+                                    if tmp[-1] != "\n":
+                                        tmp = tmp + "\n"
+                                    fOut.write("\n" + tmp)
 
-                        fOut.write(dlines[j])  # write to the copied file
-
-                    for k in range(len(spref)):
-                        # check if any were not already present in the copied file, then write them
-                        if sflag[k] < 0:
-                            if slines[k].split()[0] == "rm":
-                                #user tried to delete an option that did not exist
-                                raise IOError(
-                                    "No option '%s' to be removed in file %s."
-                                    % (slines[k].split()[1], flist[i])
-                                )
-                            else:
-                                #create new option for destination file
-                                tmp = slines[k]
-                                for m in range(len(iter_file)):
-                                    if (
-                                        iter_file[m] == i
-                                        and iter_name[m] == slines[k].split()[0]
-                                    ):
-                                        #loop through values to be set in this permutation
-                                        #if correct file and param name
-                                        #then add that value to the line to be written
-                                        tmp = slines[k].split()[0] + " " + str(tup[m])
-                                if tmp[-1] != "\n":
-                                    tmp = tmp + "\n"
-                                fOut.write("\n" + tmp)
-
-                fOut.close()   #close new .in file
+                #fOut.close()   #close new .in file
                 count += 1  # move to next combination
             histf.close()  #close grid_list file
 
