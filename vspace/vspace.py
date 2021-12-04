@@ -126,7 +126,7 @@ def main():
                 mode = 1
             else:
                 raise IOError("samplemode must be grid or random")
-        elif lines[i].split()[0] == "iSeed":
+        elif lines[i].split()[0] == "iSeed" or  lines[i].split()[0] == "seed":
             #for random sampling
             #read in RNG seed for better replicability
             if np.float(lines[i].split()[1]).is_integer():
@@ -155,7 +155,7 @@ def main():
     for i in range(len(lines)):
         if lines[i].split() == []:
             pass  # nothing on this line
-        elif lines[i].split()[0] == "sBodyFile" or lines[i].split()[0] == "sPrimaryFile":
+        elif lines[i].split()[0] == "sBodyFile" or lines[i].split()[0] == "sPrimaryFile" or lines[i].split()[0] == "file":
             #count the number of .in files we want to copy and add to simulations
             fnum += 1
 
