@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running vspace &mdash; vspace 1.0 documentation</title>
+  <title>Running VSPACE &mdash; vspace 1.0 documentation</title>
   
 
   
@@ -87,7 +87,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Running vspace</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running VSPACE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#vspace-in">vspace.in</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#template-files">Template Files</a></li>
 </ul>
@@ -125,7 +125,7 @@
     <li><a href="index.html">VPLanet</a> &raquo;</li>
       
     
-      <li>Running vspace</li>
+      <li>Running VSPACE</li>
     
       <li class="wy-breadcrumbs-aside">
         
@@ -139,8 +139,8 @@
            <div itemprop="articleBody">
             
   <section id="running-vspace">
-<h1>Running vspace<a class="headerlink" href="#running-vspace" title="Permalink to this headline">¶</a></h1>
-<p>Run vspace with the command</p>
+<h1>Running VSPACE<a class="headerlink" href="#running-vspace" title="Permalink to this headline">¶</a></h1>
+<p>Run VSPACE with the command</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vspace &lt;file&gt;
 </pre></div>
 </div>
@@ -148,7 +148,7 @@
 This file is typically called <code class="docutils literal notranslate"><span class="pre">vspace.in</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/multi-planet">multi-planet script</a> also uses <code class="docutils literal notranslate"><span class="pre">vspace</span></code>’s input file.</p>
+<p>The <a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/multiplanet">multi-planet script</a> also uses <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code>’s input file.</p>
 </div>
 <section id="vspace-in">
 <h2>vspace.in<a class="headerlink" href="#vspace-in" title="Permalink to this headline">¶</a></h2>
@@ -169,9 +169,9 @@ lines are described below and is based off the
 <span class="linenos">11</span>dObliquity <span class="o">[</span><span class="m">0</span>,10,n5<span class="o">]</span> obl
 </pre></div>
 </div>
-<p>The first line provides <code class="docutils literal notranslate"><span class="pre">vspace</span></code> with the location of a directory that contains the template
+<p>The first line provides <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> with the location of a directory that contains the template
 <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files, such as vpl.in, star.in, etc. (see below). The format of these files
-is slightly different when used with <code class="docutils literal notranslate"><span class="pre">vspace</span></code> then when used with a single <code class="docutils literal notranslate"><span class="pre">VPlanet</span></code> run.</p>
+is slightly different when used with <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> then when used with a single <code class="docutils literal notranslate"><span class="pre">VPlanet</span></code> run.</p>
 <p>Line 2 presents the name of the subdirectory that will contain all the initial conditions for
 the parameter sweep. In other words, a new directory called “data” will be created.</p>
 <p>Line 3 specifies a prefix for subdirectories in the <em>destfolder</em>. If this option is not set, the prefix is
@@ -191,11 +191,11 @@ while <code class="docutils literal notranslate"><span class="pre">sPrimaryFile<
 input option (exact match required), &lt;sampling rule&gt; sets how the values of the option
 are to be sampled (see the <a class="reference external" href="sampling">Sampling
 Rules</a> section), and &lt;identifier&gt; is a string that is appended to the trialname
-prefix in the destfolder subdirectories. <code class="docutils literal notranslate"><span class="pre">vspace</span></code> will vary all parameters listed
+prefix in the destfolder subdirectories. <a href="#id1"><span class="problematic" id="id2">``</span></a>`` will vary all parameters listed
 after a “file” command until it reaches the next “file” command or the end of the
 file. In this example we are not varying any options for vpl.in or jupiter.in, so they have no options
-listed. However they must still be included to inform <code class="docutils literal notranslate"><span class="pre">vspace</span></code> that they should be copied into the
-trial directories. In this case, “n5” tells <code class="docutils literal notranslate"><span class="pre">vspace</span></code> to create 5 evenly spaced values of dEcc between 0.001
+listed. However they must still be included to inform <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> that they should be copied into the
+trial directories. In this case, “n5” tells <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to create 5 evenly spaced values of dEcc between 0.001
 and 0.005.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -210,19 +210,19 @@ in the srcfolder, <strong>except</strong> dEcc and dObliquity would have values 
 sampling rules. The numbers after each &lt;identifier&gt; uniquely identifies the
 subdirectory.</p>
 <p>Once the directories have been created, they can all be executed with a single command
-using the <a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/multi-planet">multi-planet</a> script and
-the vspace.in file.</p>
+using the <a class="reference external" href="https://github.com/VirtualPlanetaryLaboratory/multiplanet">multiplanet</a> script and
+the VSPACE.in file.</p>
 </section>
 <section id="template-files">
 <h2>Template Files<a class="headerlink" href="#template-files" title="Permalink to this headline">¶</a></h2>
 <p>The template files are nearly identical to standard <code class="docutils literal notranslate"><span class="pre">VPLanet</span></code> input files except
 that they should not include the parameters to be varied.</p>
-<p>You can additionally instruct <code class="docutils literal notranslate"><span class="pre">vspace</span></code> to remove options from a template file with by including a line in
+<p>You can additionally instruct <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to remove options from a template file with by including a line in
 vspace.in like:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm &lt;option name&gt;
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">vspace</span></code> will merely comments out the matching line.</p>
+<p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will merely comments out the matching line.</p>
 </section>
 </section>
 

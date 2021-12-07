@@ -1,11 +1,11 @@
 Installation Guide
 ==================
 
-There are two ways to install ``vspace``: 1) in conjunction with 
+There are two ways to install ``VSPACE``: 1) in conjunction with 
 `VPLanet <https://github.com/VirtualPlanetaryLaboratory/vplanet>`_ and 
 its other support scripts, or 2) from source.
 
-To install ``vspace`` and the other ``VPLanet`` packages, use the command:
+To install ``VSPACE`` and the other ``VPLanet`` packages, use the command:
 
 .. code-block:: bash
 
