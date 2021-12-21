@@ -137,3 +137,4 @@ tests/Vspace_Log/Log_Test/
 # SCM version
 vspace/vspace_version.py
 .vscode/settings.json
+junit/test-results.xml
