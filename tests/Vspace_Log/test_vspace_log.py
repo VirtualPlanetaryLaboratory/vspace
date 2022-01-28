@@ -1,12 +1,13 @@
-import subprocess
-import numpy as np
 import os
 import pathlib
+import subprocess
 import sys
+
+import numpy as np
 
 
 def test_vspace_log():
-    #gets current path
+    # gets current path
     path = pathlib.Path(__file__).parents[0].absolute()
     sys.path.insert(1, str(path.parents[0]))
 
@@ -14,16 +15,18 @@ def test_vspace_log():
     if not (path / "Log_Test").exists():
         subprocess.check_output(["vspace", "vspace.in"], cwd=path)
     # Grab the output
-    folders = sorted([f.path for f in os.scandir(path / "Log_Test") if f.is_dir()])
+    folders = sorted(
+        [f.path for f in os.scandir(path / "Log_Test") if f.is_dir()]
+    )
     semi = []
     for i in range(len(folders)):
         os.chdir(folders[i])
-        with open('earth.in', 'r') as f:
+        with open("earth.in", "r") as f:
             for newline in f:
                 if newline.startswith("dSemi"):
                     newline = newline.strip().split()
                     semi.append(newline[1])
-        os.chdir('../')
+        os.chdir("../")
     for i in range(len(semi)):
         semi[i] = float(semi[i])
 
@@ -37,6 +40,7 @@ def test_vspace_log():
     assert np.isclose(semi[7], 215.443469)
     assert np.isclose(semi[8], 464.15888336)
     assert np.isclose(semi[9], 1000.0)
+
 
 if __name__ == "__main__":
     test_vspace_log()

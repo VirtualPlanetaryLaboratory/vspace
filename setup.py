@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup
 import os
 
+from setuptools import setup
 
 # Setup!
 setup(
@@ -19,8 +19,16 @@ setup(
         "write_to": os.path.join("vspace", "vspace_version.py"),
         "write_to_template": '__version__ = "{version}"\n',
     },
-    install_requires=["numpy", "matplotlib", "argparse",],
-    entry_points={"console_scripts": ["vspace=vspace.vspace:main",],},
+    install_requires=[
+        "numpy",
+        "matplotlib",
+        "argparse",
+    ],
+    entry_points={
+        "console_scripts": [
+            "vspace=vspace.vspace:main",
+        ],
+    },
     setup_requires=["setuptools_scm"],
     zip_safe=False,
 )

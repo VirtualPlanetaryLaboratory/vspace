@@ -1,27 +1,31 @@
-import subprocess
-import numpy as np
 import os
 import pathlib
+import subprocess
 import sys
 
+import numpy as np
+
+
 def test_vspace_linear():
-    #gets current path
+    # gets current path
     path = pathlib.Path(__file__).parents[0].absolute()
     sys.path.insert(1, str(path.parents[0]))
     # Run vspace
     if not (path / "Linear_Test").exists():
         subprocess.check_output(["vspace", "vspace.in"], cwd=path)
     # Grab the output
-    folders = sorted([f.path for f in os.scandir(path / "Linear_Test") if f.is_dir()])
+    folders = sorted(
+        [f.path for f in os.scandir(path / "Linear_Test") if f.is_dir()]
+    )
     semi = []
     for i in range(len(folders)):
         os.chdir(folders[i])
-        with open('earth.in', 'r') as f:
+        with open("earth.in", "r") as f:
             for newline in f:
                 if newline.startswith("dSemi"):
                     newline = newline.strip().split()
                     semi.append(newline[1])
-        os.chdir('../')
+        os.chdir("../")
     for i in range(len(semi)):
         semi[i] = float(semi[i])
 
