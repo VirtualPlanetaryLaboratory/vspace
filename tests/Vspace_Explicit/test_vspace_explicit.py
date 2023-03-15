@@ -1,28 +1,31 @@
-import subprocess
-import numpy as np
 import os
 import pathlib
+import subprocess
 import sys
+
+import numpy as np
 
 
 def test_vspace_explicit():
-    #gets current path
+    # gets current path
     path = pathlib.Path(__file__).parents[0].absolute()
     sys.path.insert(1, str(path.parents[0]))
     # Run vspace
     if not (path / "Explict_Test").exists():
         subprocess.check_output(["vspace", "vspace.in"], cwd=path)
     # Grab the output
-    folders = sorted([f.path for f in os.scandir(path / "Explict_Test") if f.is_dir()])
+    folders = sorted(
+        [f.path for f in os.scandir(path / "Explict_Test") if f.is_dir()]
+    )
     semi = []
     for i in range(len(folders)):
         os.chdir(folders[i])
-        with open('earth.in', 'r') as f:
+        with open("earth.in", "r") as f:
             for newline in f:
                 if newline.startswith("dSemi"):
                     newline = newline.strip().split()
                     semi.append(newline[1])
-        os.chdir('../')
+        os.chdir("../")
 
     for i in range(len(semi)):
         semi[i] = float(semi[i])
@@ -37,6 +40,7 @@ def test_vspace_explicit():
     assert np.isclose(semi[8], 1.8)
     assert np.isclose(semi[9], 1.9)
     assert np.isclose(semi[10], 2.0)
+
 
 if __name__ == "__main__":
     test_vspace_explicit()

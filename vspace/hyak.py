@@ -1,7 +1,8 @@
-from . import vspace_hyak
-import sys
 import os
 import pdb
+import sys
+
+from . import vspace_hyak
 
 if len(sys.argv) < 2:
     raise IOError("Must enter an input file name")
