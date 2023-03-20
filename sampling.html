@@ -152,7 +152,7 @@
 <h1>Sampling Rules<a class="headerlink" href="#sampling-rules" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> has two sampling modes: <strong>grid</strong> and <strong>random</strong>, which are specified with the word
 “samplemode” in the input file (vspace.in). For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sSampleMode random
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sSampleMode<span class="w"> </span>random
 </pre></div>
 </div>
 <p>will allow you to generate trials that are randomly distributed by a “sampling rule”. If <em>samplemode</em>
@@ -162,7 +162,7 @@ is not set, the default is grid mode.</p>
 <p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> allows for 3 submodes to generate trials that explore a gridded parameter
 space, i.e even spacing. These submodes are <strong>explicit</strong>, <strong>linear</strong>, and
 <strong>logarithmic</strong>. Each adheres the following syntax:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt; <span class="o">[</span>start, end, spacing<span class="o">]</span> &lt;identifier&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt;<span class="w"> </span><span class="o">[</span>start,<span class="w"> </span>end,<span class="w"> </span>spacing<span class="o">]</span><span class="w"> </span>&lt;identifier&gt;
 </pre></div>
 </div>
 <p>In all modes the “start” and “end” values represent the limits of the parameter
@@ -175,7 +175,7 @@ interval in between trials. <code class="docutils literal notranslate"><span cla
 to follow the sampling rules, and will not necessarily include a trial at the
 end value. For example, to generate trials that vary <code class="docutils literal notranslate"><span class="pre">dSemi</span></code> from 1 to 2
 with a spacing of 0.1, the syntax is:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dSemi  <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">0</span>.1<span class="o">]</span>  a
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dSemi<span class="w">  </span><span class="o">[</span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span><span class="m">0</span>.1<span class="o">]</span><span class="w">  </span>a
 </pre></div>
 </div>
 </section>
@@ -185,18 +185,18 @@ with a spacing of 0.1, the syntax is:</p>
 that are evenly spaced, the spacing argument must star with an “n” followed
 by an integer that represents the number of values to generate. For example, the
 previous example could be rewritten as</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dSemi  <span class="o">[</span><span class="m">1</span>, <span class="m">2</span>, n11<span class="o">]</span>  a
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dSemi<span class="w">  </span><span class="o">[</span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span>,<span class="w"> </span>n11<span class="o">]</span><span class="w">  </span>a
 </pre></div>
 </div>
 <p>which would generate 11 trials, equally spaced, from 1 to 2, i.e. every 0.1.</p>
 <p>Negative values are allowed, but if you are providing the spacing,
 rather than using the “n” or “l” option, either provide a negative spacing or
 swap the start and end values. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dRadius  <span class="o">[</span>-1, -2, -0.1<span class="o">]</span>  R
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dRadius<span class="w">  </span><span class="o">[</span>-1,<span class="w"> </span>-2,<span class="w"> </span>-0.1<span class="o">]</span><span class="w">  </span>R
 </pre></div>
 </div>
 <p>or,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dRadius  <span class="o">[</span>-2, -1, <span class="m">0</span>.1<span class="o">]</span>  R
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dRadius<span class="w">  </span><span class="o">[</span>-2,<span class="w"> </span>-1,<span class="w"> </span><span class="m">0</span>.1<span class="o">]</span><span class="w">  </span>R
 </pre></div>
 </div>
 <p>rather than <code class="docutils literal notranslate"><span class="pre">dRadius</span> <span class="pre">[-1,</span> <span class="pre">-2,</span> <span class="pre">0.1]</span>&#160; <span class="pre">R</span></code>.</p>
@@ -212,7 +212,7 @@ or by running <code class="docutils literal notranslate"><span class="pre">vplan
 <section id="logarithmic-grids">
 <h3>Logarithmic Grids<a class="headerlink" href="#logarithmic-grids" title="Permalink to this headline">¶</a></h3>
 <p>To change the spacing to be logarithmic, use “l” instead of “n”:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dSemi  <span class="o">[</span><span class="m">1</span>, <span class="m">1000</span>, l10<span class="o">]</span>  a
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dSemi<span class="w">  </span><span class="o">[</span><span class="m">1</span>,<span class="w"> </span><span class="m">1000</span>,<span class="w"> </span>l10<span class="o">]</span><span class="w">  </span>a
 </pre></div>
 </div>
 <p>which would generate ten trials, logarithmically spaced, from 1 to 1000.</p>
@@ -232,13 +232,13 @@ the desired values (check the histograms).</p>
 <strong>cosine</strong>. The syntax for generating randomly sampled data is similar to grid
 mode, with a few noteable differences. In random mode, one MUST set the variable
 <code class="docutils literal notranslate"><span class="pre">iNumTrials</span></code> to an integer value that is the number of trials:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iNumTrials &lt;number of trials&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iNumTrials<span class="w"> </span>&lt;number<span class="w"> </span>of<span class="w"> </span>trials&gt;
 </pre></div>
 </div>
 <p>Additionally, it is good practice to seed the random number generator, to allow for
 more easily reproducible results. This initialization is accomplished with the
 variable <code class="docutils literal notranslate"><span class="pre">seed</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iSeed &lt;integer&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iSeed<span class="w"> </span>&lt;integer&gt;
 </pre></div>
 </div>
 <p>With these options set, we can now specify how each parameter is varied.</p>
@@ -249,7 +249,7 @@ variable <code class="docutils literal notranslate"><span class="pre">seed</span
 <section id="uniform-distributions">
 <h3>Uniform Distributions<a class="headerlink" href="#uniform-distributions" title="Permalink to this headline">¶</a></h3>
 <p>A uniform distribution is sampled like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt; <span class="o">[</span>&lt;min&gt;, &lt;max&gt;, u<span class="o">]</span> &lt;prefix&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt;<span class="w"> </span><span class="o">[</span>&lt;min&gt;,<span class="w"> </span>&lt;max&gt;,<span class="w"> </span>u<span class="o">]</span><span class="w"> </span>&lt;prefix&gt;
 </pre></div>
 </div>
 <p>where &lt;min&gt; and &lt;max&gt; are the limits. Since the number of trials is set by the <em>randsize</em> option,
@@ -258,17 +258,17 @@ we do not need to specify it again here.</p>
 <section id="gaussian-distributions">
 <h3>Gaussian Distributions<a class="headerlink" href="#gaussian-distributions" title="Permalink to this headline">¶</a></h3>
 <p>For Gaussian/normal distributions, the syntax is:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt; <span class="o">[</span>&lt;mean&gt;, &lt;width/stdev&gt;, g<span class="o">]</span> &lt;prefix&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt;<span class="w"> </span><span class="o">[</span>&lt;mean&gt;,<span class="w"> </span>&lt;width/stdev&gt;,<span class="w"> </span>g<span class="o">]</span><span class="w"> </span>&lt;prefix&gt;
 </pre></div>
 </div>
 <p>An example would be:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc  <span class="o">[</span><span class="m">0</span>.1, <span class="m">0</span>.01, g<span class="o">]</span>  e
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc<span class="w">  </span><span class="o">[</span><span class="m">0</span>.1,<span class="w"> </span><span class="m">0</span>.01,<span class="w"> </span>g<span class="o">]</span><span class="w">  </span>e
 </pre></div>
 </div>
 <p>For some parameters, you may want to truncate the distribution at certain values,
 for example, dEcc should not be &lt; 0 or &gt; 1. You can provide cutoffs with 4th and/or
 5th arguments in the brackets with the keywords “min” or “max”:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc  <span class="o">[</span><span class="m">0</span>.1, <span class="m">0</span>.01, g, min0.0, max1.0<span class="o">]</span>  e
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc<span class="w">  </span><span class="o">[</span><span class="m">0</span>.1,<span class="w"> </span><span class="m">0</span>.01,<span class="w"> </span>g,<span class="w"> </span>min0.0,<span class="w"> </span>max1.0<span class="o">]</span><span class="w">  </span>e
 </pre></div>
 </div>
 <p>You do not need to provide both min and max if you need only one, and their order does
@@ -279,9 +279,9 @@ not matter.</p>
 <p>For angles, you may want to sample the sine or cosine of the angle uniformly,
 rather than sampling the angle itself uniformly. You can accomplish this
 with <code class="docutils literal notranslate"><span class="pre">s</span></code> or <code class="docutils literal notranslate"><span class="pre">c</span></code>, for sine and cosine, respectively:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt; <span class="o">[</span>&lt;low angle&gt;, &lt;high angle&gt;, s<span class="o">]</span> &lt;prefix&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt;<span class="w"> </span><span class="o">[</span>&lt;low<span class="w"> </span>angle&gt;,<span class="w"> </span>&lt;high<span class="w"> </span>angle&gt;,<span class="w"> </span>s<span class="o">]</span><span class="w"> </span>&lt;prefix&gt;
 
-&lt;option&gt; <span class="o">[</span>&lt;low angle&gt;, &lt;high angle&gt;, c<span class="o">]</span> &lt;prefix&gt;
+&lt;option&gt;<span class="w"> </span><span class="o">[</span>&lt;low<span class="w"> </span>angle&gt;,<span class="w"> </span>&lt;high<span class="w"> </span>angle&gt;,<span class="w"> </span>c<span class="o">]</span><span class="w"> </span>&lt;prefix&gt;
 </pre></div>
 </div>
 <p>Note that &lt;low angle&gt; and &lt;high angle&gt; should be the min and max values of the <strong>ANGLE</strong>,

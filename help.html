@@ -141,7 +141,7 @@
   <section id="running-vspace">
 <h1>Running VSPACE<a class="headerlink" href="#running-vspace" title="Permalink to this headline">¶</a></h1>
 <p>Run VSPACE with the command</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vspace &lt;file&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vspace<span class="w"> </span>&lt;file&gt;
 </pre></div>
 </div>
 <p>where <em>file</em> is an ASCII text file that contains instructions on how to build the parameter space.
@@ -156,17 +156,17 @@ This file is typically called <code class="docutils literal notranslate"><span c
 An example input file, called <code class="docutils literal notranslate"><span class="pre">vspace.in</span></code>, is included in this directory and its
 lines are described below and is based off the
 <a class="reference external" href="https://virtualplanetarylaboratory.github.io/vplanet/examples/IoHeat.html">IoHeat example</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>sSrcFolder .
-<span class="linenos"> 2</span>sDestFolder data
-<span class="linenos"> 3</span>sTrialName  ioheat
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>sSrcFolder<span class="w"> </span>.
+<span class="linenos"> 2</span>sDestFolder<span class="w"> </span>data
+<span class="linenos"> 3</span>sTrialName<span class="w">  </span>ioheat
 <span class="linenos"> 4</span>
-<span class="linenos"> 5</span>sPrimaryFile   vpl.in
+<span class="linenos"> 5</span>sPrimaryFile<span class="w">   </span>vpl.in
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span>sBodyFile   jupiter.in
+<span class="linenos"> 7</span>sBodyFile<span class="w">   </span>jupiter.in
 <span class="linenos"> 8</span>
-<span class="linenos"> 9</span>sBodyFile   io.in
-<span class="linenos">10</span>dEcc  <span class="o">[</span><span class="m">0</span>.001,0.005,n5<span class="o">]</span> ecc
-<span class="linenos">11</span>dObliquity <span class="o">[</span><span class="m">0</span>,10,n5<span class="o">]</span> obl
+<span class="linenos"> 9</span>sBodyFile<span class="w">   </span>io.in
+<span class="linenos">10</span>dEcc<span class="w">  </span><span class="o">[</span><span class="m">0</span>.001,0.005,n5<span class="o">]</span><span class="w"> </span>ecc
+<span class="linenos">11</span>dObliquity<span class="w"> </span><span class="o">[</span><span class="m">0</span>,10,n5<span class="o">]</span><span class="w"> </span>obl
 </pre></div>
 </div>
 <p>The first line provides <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> with the location of a directory that contains the template
@@ -178,9 +178,9 @@ the parameter sweep. In other words, a new directory called “data” will be c
 set to “default”. With these top-level commands executed, the remaining lines describe how the
 individual parameters are to be varied and completes the names of the trial directories. The general
 syntax for these lines are:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;filetype&gt; &lt;name&gt;
-&lt;option&gt; <span class="o">[</span>sampling rules<span class="o">]</span> &lt;identifier&gt;
-&lt;option&gt; <span class="o">[</span>sampling rules<span class="o">]</span> &lt;identifier&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;filetype&gt;<span class="w"> </span>&lt;name&gt;
+&lt;option&gt;<span class="w"> </span><span class="o">[</span>sampling<span class="w"> </span>rules<span class="o">]</span><span class="w"> </span>&lt;identifier&gt;
+&lt;option&gt;<span class="w"> </span><span class="o">[</span>sampling<span class="w"> </span>rules<span class="o">]</span><span class="w"> </span>&lt;identifier&gt;
 ...
 </pre></div>
 </div>
@@ -219,7 +219,7 @@ the VSPACE.in file.</p>
 that they should not include the parameters to be varied.</p>
 <p>You can additionally instruct <code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> to remove options from a template file with by including a line in
 vspace.in like:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm &lt;option name&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>&lt;option<span class="w"> </span>name&gt;
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">VSPACE</span></code> will merely comments out the matching line.</p>
