@@ -1,14 +1,16 @@
 from __future__ import print_function
-from . import vspace_hyak  #relative import does not seem to work here. can't figure out why
+#from . import vspace_hyak  #relative import does not seem to work here. can't figure out why
 # import vspace_hyak
 import os
 import sys
 import numpy as np
 import re
 import itertools as it
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import subprocess as sub
 import argparse
+from astropy.io import ascii
+import json
 
 
 def SearchAngleUnit(src, flist):
@@ -56,6 +58,11 @@ def main():
     iter_file = []  # which file each variable belongs to
     iter_name = []  # the name of each variable
     prefix = []
+    
+    prior_files = [] # list to contain any & all names of prior files for predefined prior mode
+    prior_samples = [] # list to contain randomly selected priors
+    prior_indicies = [] # the randomly chosen prior index that creates samples
+    
     numtry = 1  # number of trials to be generated
     numvars = 0  # number of iter_vars
     angUnit = 0  # angle unit used for sine and cosine sampling
@@ -149,6 +156,38 @@ def main():
 
     #^ end first pass through input file ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
+    # Begin Megans Addition -----------------------------------
+    # pass 1a through input file ------------------------------
+    # check for predefined prior mode, randomly generate samples 1 per input prior file
+    for i in range(len(lines)):
+        if re.search("\[", lines[i]) != None:
+            spl = re.split("[\[\]]", lines[i])
+            values = spl[1].split(",")
+            for j in range(len(values)):
+                values[j] = values[j].strip()
+            if values[2][0] == 'p':
+                if mode != 1:
+                    raise IOError("Random mode must be used when passing predefined priors")
+                if values[0] not in prior_files:
+                    prior_files.append(values[0])
+                    if values[1] == 'npy':
+                        fprior = np.load(values[0])
+                        prior_index = np.random.choice(fprior.shape[0], size=randsize, replace=False)
+                        prior_indicies.append(prior_index)
+                        samp = fprior[prior_index]
+                        prior_samples.append(samp)
+                    elif values[1] == 'txt' or values[1] == 'dat':
+                        fprior = ascii.read(value[0])
+                        prior_index = np.random.choice(len(fprior), size=randsize, replace=False)
+                        prior_indicies.append(prior_index)
+                        samp = fprior[prior_index]
+                        prior_samples.append(samp)
+                    elif values[1] != 'npy' and values[1] != 'txt' and values[1] != 'dat':
+                        raise IOError("File type incompatible for predefined prior mode. Acceptable file types: npy, ascii formatted txt, ascii formatted dat")
+    # End pass 1a through input file -------------------------------
+    # End Megans Addition ------------------------------------------
+
     #- second pass through input file ------------------------------------------
     #- identify and check syntax of lines demarking iterations -----------------
     #- build arrays of variables if all input is valid -------------------------
@@ -221,6 +260,8 @@ def main():
                                 "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,g,min<value>], [<center>,<width>,g,max<value>],[<center>,<width>,g,min<value>,max<value>], or [<center>,<width>,g,max<value>,min<value>]"
                                 % (name, flist[fnum - 1])
                             )
+                    elif len(values) == 4 and values[2][0] == 'p': #predefined prior mode will have len(values) == 4
+                        pass
                     else:
                         #extra values only allowed in gaussian mode
                         raise IOError(
@@ -355,7 +396,26 @@ def main():
                         "Attempt to draw from a random distribution in grid mode for '%s' for '%s'"
                         % (name, flist[fnum - 1])
                     )
+            # user wants to randomly sample predefined priors - Megan's addition -------------
+            elif values[2][0] == 'p':
+                if mode == 1:
+                    for q in range(len(prior_files)):
+                        if values[0] == prior_files[q]:
+                            samps = prior_samples[q]
+                    colnum = int(values[3]) - 1
+                    array_hold = []
+                    for q in range(len(samps)):
+                        array_hold.append(samps[q][colnum])
+                    array = np.array(array_hold)
+            # End Megan's addition -------------------------------
 
+            # User wants one parameter in every vspace created input file to have one constant defined number, one-value mode
+            # This can be used in either random or grid mode
+            # Megan's addition -----------------------------------
+            elif values[2][0] == 'o':
+                array = np.ones(randsize)*float(values[0])
+            # End Megan's addition -------------------------------
+                    
             # user wants to randomly sample a uniform distribution
             elif values[2][0] == "u":
                 if mode == 1:
@@ -537,6 +597,21 @@ def main():
         os.system("mkdir " + dest)
 
     # end additional error handling ********************************************
+
+    # Begin Megans Addition -------------------------------------------
+    # Record the indicies of each prior file that are being used
+    if prior_files != []:
+        dic = {}
+        for j in range(len(prior_files)):
+            indexHold = []
+            for s in range(len(prior_indicies[j])):
+                indexHold.append(int(prior_indicies[j][s]))
+            dic[prior_files[j]] = indexHold
+        dichold = json.dumps(dic)
+        priorsused = open(os.path.join(dest, trial+'PriorIndicies.json'), 'w')
+        json.dump(dichold, priorsused)
+        priorsused.close()
+    # End Megans Addition ----------------------------------------------
 
 
     #___ set up output and write it to new .in files ___________________________
@@ -787,6 +862,7 @@ def main():
 
                     # find the lines in 'inputf' that correspond to this file
                     slines = lines[fline[i] + 1 : fline[i + 1]]  #get relevant slice
+
                     slines = [
                         slines[j] for j in range(len(slines)) if slines[j].split() != []
                     ]  #cut out empty lines
@@ -795,13 +871,14 @@ def main():
                     )  # this will be for bookkeeping (has option been found in file?)
                     spref = [
                         slines[j].split()[0] for j in range(len(slines))
-                    ]  # option name
+                    ]  # option name                    
+
                     dlines = fIn.readlines()   #read the lines in the .in file
                     fIn.close()                #close it
 
                     # create file out (new .in file)
                     fOut = open(os.path.join(destfull, flist[i]), "w")
-
+                    
                     for j in range(len(dlines)):
                         #loop over lines of .in file to check for matches with user set parameters
                         for k in range(len(spref)):
@@ -828,11 +905,11 @@ def main():
                                         dlines[j] = (
                                             dlines[j] + "\n"
                                         )  # add a newline, just in case
-                                elif slines[k].split()[0] == "rm":
+                               # elif slines[i].split()[0] == "rm": 
                                     # remove an option by placing a comment!
-                                    if dlines[j].split()[0] == slines[k].split()[1]:
-                                        dlines[j] = "#" + dlines[j]
-                                        sflag[k] = 1
+                               #     if dlines[j].split()[0] == slines[k].split()[1]:
+                               #         dlines[j] = "#" + dlines[j]
+                               #         sflag[k] = 1
 
                         fOut.write(dlines[j])  # write to the copied file
 
@@ -863,23 +940,23 @@ def main():
 
             histf.close()   #close grid_list file
 
-            for ii in np.arange(len(iterables0)):
+            #for ii in np.arange(len(iterables0)):
                 #generate histogram of simulations
-                plt.figure(figsize=(8, 8))
-                plt.hist(
-                    iterables0[ii], histtype="stepfilled", color="0.5", edgecolor="None"
-                )
-                plt.xlabel(iter_name[ii])
-                plt.ylabel("Number of trials")
-                plt.savefig(
-                    dest
-                    + "/hist_"
-                    + flist[iter_file[ii]][:-3]
-                    + "_"
-                    + iter_name[ii]
-                    + ".pdf"
-                )
-                plt.close()
+                #plt.figure(figsize=(8, 8))
+                #plt.hist(
+                #    iterables0[ii], histtype="stepfilled", color="0.5", edgecolor="None"
+                #)
+                #plt.xlabel(iter_name[ii])
+                #plt.ylabel("Number of trials")
+                #plt.savefig(
+                #    dest
+                #    + "/hist_"
+                #    + flist[iter_file[ii]][:-3]
+                #    + "_"
+                #    + iter_name[ii]
+                #    + ".pdf"
+                #)
+                #plt.close()
 
     #___ end set up output and write it to new .in files _______________________
 
