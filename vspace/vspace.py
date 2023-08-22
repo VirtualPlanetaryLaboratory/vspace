@@ -151,7 +151,7 @@ def main():
         elif lines[i].split()[0] == "iSeed" or lines[i].split()[0] == "seed":
             # for random sampling
             # read in RNG seed for better replicability
-            if np.float(lines[i].split()[1]).is_integer():
+            if float(lines[i].split()[1]).is_integer():
                 np.random.seed(np.int(lines[i].split()[1]))
             else:
                 raise IOError("Attempt to pass non-integer value to seed")
@@ -171,7 +171,7 @@ def main():
             or lines[i].split()[0] == "randsize"
         ):
             # read in number of random simulations to generate
-            if np.float(lines[i].split()[1]).is_integer():
+            if float(lines[i].split()[1]).is_integer():
                 randsize = np.int(lines[i].split()[1])
             else:
                 raise IOError(
@@ -233,9 +233,9 @@ def main():
                         if len(values) >= 4 and len(values) < 6:
                             # check if 4th value contains min or max
                             if values[3][:3] == "min":
-                                min_cutoff = np.float(values[3][3:])
+                                min_cutoff = float(values[3][3:])
                             elif values[3][:3] == "max":
-                                max_cutoff = np.float(values[3][3:])
+                                max_cutoff = float(values[3][3:])
                             else:
                                 raise IOError(
                                     "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>, <width>, g, min<value>], [<center>, <width>, g, max<value>],[<center>, <width>, g, min<value>, max<value>], or [<center>, <width>, g, max<value>, min<value>]"
@@ -244,9 +244,9 @@ def main():
                         if len(values) == 5:
                             # check if 5th value contains min or max (if it exists)
                             if values[4][:3] == "min":
-                                min_cutoff = np.float(values[4][3:])
+                                min_cutoff = float(values[4][3:])
                             elif values[4][:3] == "max":
-                                max_cutoff = np.float(values[4][3:])
+                                max_cutoff = float(values[4][3:])
                             else:
                                 raise IOError(
                                     "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,g,min<value>], [<center>,<width>,g,max<value>],[<center>,<width>,g,min<value>,max<value>], or [<center>,<width>,g,max<value>,min<value>]"
@@ -269,12 +269,12 @@ def main():
             if values[2][0] == "n":
                 if mode == 0:
                     values[2] = values[2][1:]  # remove leading 'n'
-                    if np.float(values[2]).is_integer():
+                    if float(values[2]).is_integer():
                         # if number for linear spacing is an integer, we are good
                         # construct this parameter's grid
                         array = np.linspace(
-                            np.float(values[0]),
-                            np.float(values[1]),
+                            float(values[0]),
+                            float(values[1]),
                             int(values[2]),
                         )
                     else:
@@ -294,15 +294,15 @@ def main():
             elif values[2][0] == "l":
                 if mode == 0:
                     values[2] = values[2][1:]  # remove leading 'l'
-                    if np.float(values[0]) < 0:
+                    if float(values[0]) < 0:
                         # user has set a negative value for endpoints
                         # signs on left and right ends must agree! (might want to change for some parameters)
-                        if np.float(values[2]).is_integer():
+                        if float(values[2]).is_integer():
                             # check if log spacing has a integer number, we are ok
                             # construct this parameter's grid
                             array = -np.logspace(
-                                np.log10(-np.float(values[0])),
-                                np.log10(-np.float(values[1])),
+                                np.log10(-float(values[0])),
+                                np.log10(-float(values[1])),
                                 int(values[2]),
                             )
                         else:
@@ -313,12 +313,12 @@ def main():
                             )
                     else:
                         # left edge is not negative
-                        if np.float(values[2]).is_integer():
+                        if float(values[2]).is_integer():
                             # check if log spacing has a integer number, we are ok
                             # construct this parameter's grid
                             array = np.logspace(
-                                np.log10(np.float(values[0])),
-                                np.log10(np.float(values[1])),
+                                np.log10(float(values[0])),
+                                np.log10(float(values[1])),
                                 int(values[2]),
                             )
                         else:
@@ -340,8 +340,8 @@ def main():
                     # check if user set random mode
                     # if yes, construct array of random samples
                     array = np.random.normal(
-                        loc=np.float(values[0]),
-                        scale=np.float(values[1]),
+                        loc=float(values[0]),
+                        scale=float(values[1]),
                         size=np.int(randsize),
                     )
                     if "min_cutoff" in vars() and "max_cutoff" not in vars():
@@ -350,8 +350,8 @@ def main():
                         for ll in np.arange(len(array)):
                             while array[ll] < min_cutoff:
                                 array[ll] = np.random.normal(
-                                    loc=np.float(values[0]),
-                                    scale=np.float(values[1]),
+                                    loc=float(values[0]),
+                                    scale=float(values[1]),
                                     size=1,
                                 )
                         del min_cutoff  # clean up so next parameter doesn't have spurious min_cutoff
@@ -361,8 +361,8 @@ def main():
                         for ll in np.arange(len(array)):
                             while array[ll] > max_cutoff:
                                 array[ll] = np.random.normal(
-                                    loc=np.float(values[0]),
-                                    scale=np.float(values[1]),
+                                    loc=float(values[0]),
+                                    scale=float(values[1]),
                                     size=1,
                                 )
                         del max_cutoff  # clean up so next parameter doesn't have spurious max_cutoff
@@ -375,8 +375,8 @@ def main():
                                 or array[ll] > max_cutoff
                             ):
                                 array[ll] = np.random.normal(
-                                    loc=np.float(values[0]),
-                                    scale=np.float(values[1]),
+                                    loc=float(values[0]),
+                                    scale=float(values[1]),
                                     size=1,
                                 )
                         del max_cutoff  # clean up so next parameter doesn't have spurious cutoffs
@@ -386,8 +386,8 @@ def main():
                     #     #wtf??? maybe this can be removed??
                     #     for ll in np.arange(len(array)):
                     #         array[ll] = np.random.normal(
-                    #             loc=np.float(values[0]),
-                    #             scale=np.float(values[1]),
+                    #             loc=float(values[0]),
+                    #             scale=float(values[1]),
                     #             size=1,
                     #         )
                 else:
@@ -403,9 +403,9 @@ def main():
                     # check if in random mode, all ok
                     # construct array of random samples
                     array = np.random.uniform(
-                        low=np.float(values[0]),
-                        high=np.float(values[1]),
-                        size=np.int(randsize),
+                        low=float(values[0]),
+                        high=float(values[1]),
+                        size=int(randsize),
                     )
                 else:
                     # user tried to use random sampling in grid mode
@@ -419,14 +419,14 @@ def main():
                 if mode == 1:
                     # check if in random mode, all ok
                     # construct array of randoms amples
-                    if np.float(values[0]) < 0:
+                    if float(values[0]) < 0:
                         # user has set a negative value for endpoints
                         # signs on left and right ends must agree! (might want to change for some parameters)
                         array = -np.power(
                             10,
                             np.random.uniform(
-                                low=np.log10(-np.float(values[0])),
-                                high=np.log10(-np.float(values[1])),
+                                low=np.log10(-float(values[0])),
+                                high=np.log10(-float(values[1])),
                                 size=np.int(randsize),
                             ),
                         )
@@ -434,8 +434,8 @@ def main():
                         array = np.power(
                             10,
                             np.random.uniform(
-                                low=np.log10(np.float(values[0])),
-                                high=np.log10(np.float(values[1])),
+                                low=np.log10(float(values[0])),
+                                high=np.log10(float(values[1])),
                                 size=np.int(randsize),
                             ),
                         )
@@ -459,10 +459,10 @@ def main():
                             np.arcsin(
                                 np.random.uniform(
                                     low=np.sin(
-                                        np.float(values[0]) * np.pi / 180.0
+                                        float(values[0]) * np.pi / 180.0
                                     ),
                                     high=np.sin(
-                                        np.float(values[1]) * np.pi / 180.0
+                                        float(values[1]) * np.pi / 180.0
                                     ),
                                     size=np.int(randsize),
                                 )
@@ -474,8 +474,8 @@ def main():
                         # angle is radians, no conversion
                         array = np.arcsin(
                             np.random.uniform(
-                                low=np.sin(np.float(values[0])),
-                                high=np.sin(np.float(values[1])),
+                                low=np.sin(float(values[0])),
+                                high=np.sin(float(values[1])),
                                 size=np.int(randsize),
                             )
                         )
@@ -505,10 +505,10 @@ def main():
                             np.arccos(
                                 np.random.uniform(
                                     low=np.cos(
-                                        np.float(values[0]) * np.pi / 180.0
+                                        float(values[0]) * np.pi / 180.0
                                     ),
                                     high=np.cos(
-                                        np.float(values[1]) * np.pi / 180.0
+                                        float(values[1]) * np.pi / 180.0
                                     ),
                                     size=np.int(randsize),
                                 )
@@ -520,8 +520,8 @@ def main():
                         # angle is radians, no conversion needed
                         array = np.arccos(
                             np.random.uniform(
-                                low=np.cos(np.float(values[0])),
-                                high=np.cos(np.float(values[1])),
+                                low=np.cos(float(values[0])),
+                                high=np.cos(float(values[1])),
                                 size=np.int(randsize),
                             )
                         )
@@ -546,8 +546,8 @@ def main():
             else:
                 if mode == 0:
                     if (
-                        np.float(values[0]) > np.float(values[1])
-                        and np.float(values[2]) > 0
+                        float(values[0]) > float(values[1])
+                        and float(values[2]) > 0
                     ):
                         # check if left is bigger than right end and interval is positive
                         # if so, exit
@@ -559,9 +559,9 @@ def main():
                         # left is smaller than right or interval is negative
                         # all ok, create grid for this parameter
                         array = np.arange(
-                            np.float(values[0]),
-                            np.float(values[1]) + np.float(values[2]),
-                            np.float(values[2]),
+                            float(values[0]),
+                            float(values[1]) + float(values[2]),
+                            float(values[2]),
                         )
                 else:
                     # tried to set log spacing in random mode, exit
