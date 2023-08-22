@@ -717,7 +717,7 @@ def main():
                         str(len(iter_var[ii]) - 1)
                     )  # compute number of digits to pad directory index
                     index0 = np.where(iter_var[ii] == tup[ii])[0]
-                    destfull += prefix[ii] + np.str(index0[0]).zfill(
+                    destfull += prefix[ii] + str(index0[0]).zfill(
                         n
                     )  # add identifier to directory name
                     if count == 0:
@@ -728,7 +728,7 @@ def main():
                             + iter_name[ii]
                             + " "
                         )
-                    current_line += prefix[ii] + np.str(index0[0]).zfill(
+                    current_line += prefix[ii] + str(index0[0]).zfill(
                         n
                     )  # same as dest name, without trial name
                     if ii != len(tup) - 1:
@@ -875,7 +875,7 @@ def main():
                 if count == 0:  # start header for rand_list file
                     header = "trial "
                 current_line = (
-                    "rand_" + np.str(count).zfill(n) + " "
+                    "rand_" + str(count).zfill(n) + " "
                 )  # line in rand_list file
                 for ii in np.arange(len(iterables0)):
                     # loop over trials, add values of each variable
@@ -905,7 +905,7 @@ def main():
                 destfull = os.path.join(
                     dest, trial
                 )  # create directory for this combination
-                destfull += "rand_" + np.str(count).zfill(n)
+                destfull += "rand_" + str(count).zfill(n)
                 if not os.path.exists(destfull):
                     # create destination folder if it doesn't already exist
                     os.system("mkdir " + destfull)
