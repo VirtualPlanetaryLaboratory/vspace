@@ -2,7 +2,7 @@ import os
 import pathlib
 import subprocess
 import sys
-
+import shutil
 import numpy as np
 
 
@@ -11,12 +11,18 @@ def test_vspace_log():
     path = pathlib.Path(__file__).parents[0].absolute()
     sys.path.insert(1, str(path.parents[0]))
 
+    dir = (path / "Log_Test")
+
+   # Remove anything from previous tests
+    if (dir).exists():
+        shutil.rmtree(dir)
+
     # Run vspace
-    if not (path / "Log_Test").exists():
-        subprocess.check_output(["vspace", "vspace.in"], cwd=path)
+    subprocess.check_output(["vspace", "vspace.in"], cwd=path)
+
     # Grab the output
     folders = sorted(
-        [f.path for f in os.scandir(path / "Log_Test") if f.is_dir()]
+        [f.path for f in os.scandir(dir) if f.is_dir()]
     )
     semi = []
     for i in range(len(folders)):
