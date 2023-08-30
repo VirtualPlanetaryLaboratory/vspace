@@ -152,7 +152,7 @@ def main():
             # for random sampling
             # read in RNG seed for better replicability
             if float(lines[i].split()[1]).is_integer():
-                np.random.seed(np.int(lines[i].split()[1]))
+                np.random.seed(int(lines[i].split()[1]))
             else:
                 raise IOError("Attempt to pass non-integer value to seed")
         elif (
@@ -172,7 +172,7 @@ def main():
         ):
             # read in number of random simulations to generate
             if float(lines[i].split()[1]).is_integer():
-                randsize = np.int(lines[i].split()[1])
+                randsize = int(lines[i].split()[1])
             else:
                 raise IOError(
                     "Attempt to pass non-integer value to iNumTrials"
@@ -342,7 +342,7 @@ def main():
                     array = np.random.normal(
                         loc=float(values[0]),
                         scale=float(values[1]),
-                        size=np.int(randsize),
+                        size=int(randsize),
                     )
                     if "min_cutoff" in vars() and "max_cutoff" not in vars():
                         # user has set a min value for this parameter
@@ -427,7 +427,7 @@ def main():
                             np.random.uniform(
                                 low=np.log10(-float(values[0])),
                                 high=np.log10(-float(values[1])),
-                                size=np.int(randsize),
+                                size=int(randsize),
                             ),
                         )
                     else:
@@ -436,7 +436,7 @@ def main():
                             np.random.uniform(
                                 low=np.log10(float(values[0])),
                                 high=np.log10(float(values[1])),
-                                size=np.int(randsize),
+                                size=int(randsize),
                             ),
                         )
                 else:
@@ -464,7 +464,7 @@ def main():
                                     high=np.sin(
                                         float(values[1]) * np.pi / 180.0
                                     ),
-                                    size=np.int(randsize),
+                                    size=int(randsize),
                                 )
                             )
                             * 180
@@ -476,7 +476,7 @@ def main():
                             np.random.uniform(
                                 low=np.sin(float(values[0])),
                                 high=np.sin(float(values[1])),
-                                size=np.int(randsize),
+                                size=int(randsize),
                             )
                         )
                     else:
@@ -510,7 +510,7 @@ def main():
                                     high=np.cos(
                                         float(values[1]) * np.pi / 180.0
                                     ),
-                                    size=np.int(randsize),
+                                    size=int(randsize),
                                 )
                             )
                             * 180
@@ -522,7 +522,7 @@ def main():
                             np.random.uniform(
                                 low=np.cos(float(values[0])),
                                 high=np.cos(float(values[1])),
-                                size=np.int(randsize),
+                                size=int(randsize),
                             )
                         )
                     else:
