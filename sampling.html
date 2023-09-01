@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#random-mode">Random Mode</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#uniform-distributions">Uniform Distributions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gaussian-distributions">Gaussian Distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#log-normal-galton-distributions">Log-Normal (Galton) Distributions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sine-and-cosine-distributions">Sine and Cosine Distributions</a></li>
 </ul>
 </li>
@@ -269,6 +270,30 @@ we do not need to specify it again here.</p>
 for example, dEcc should not be &lt; 0 or &gt; 1. You can provide cutoffs with 4th and/or
 5th arguments in the brackets with the keywords “min” or “max”:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc<span class="w">  </span><span class="o">[</span><span class="m">0</span>.1,<span class="w"> </span><span class="m">0</span>.01,<span class="w"> </span>g,<span class="w"> </span>min0.0,<span class="w"> </span>max1.0<span class="o">]</span><span class="w">  </span>e
+</pre></div>
+</div>
+<p>You do not need to provide both min and max if you need only one, and their order does
+not matter.</p>
+</section>
+<section id="log-normal-galton-distributions">
+<h3>Log-Normal (Galton) Distributions<a class="headerlink" href="#log-normal-galton-distributions" title="Permalink to this headline">¶</a></h3>
+<p>For Log-Normal (Galton) distributions, the syntax is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;option&gt;<span class="w"> </span><span class="o">[</span>&lt;mu&gt;,<span class="w"> </span>&lt;sigma&gt;,<span class="w"> </span>G<span class="o">]</span><span class="w"> </span>&lt;prefix&gt;
+</pre></div>
+</div>
+<p>An example would be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc<span class="w">  </span><span class="o">[</span><span class="m">0</span>.1,<span class="w"> </span><span class="m">0</span>.01,<span class="w"> </span>G<span class="o">]</span><span class="w">  </span>e
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Beware, the mu and sigma parameters of the log-normal distribution are not the mean</dt><dd><p>and standard deviation, however they are related. If a log-normally distributed parameter X
+has been reported log_10 X = a +/- b, then mu = a ln 10 + b^2 (ln 10)^2 and sigma = b ln 10.</p>
+</dd>
+</dl>
+<p>For some parameters, you may want to truncate the distribution at certain values,
+for example, dEcc should not be &lt; 0 or &gt; 1. You can provide cutoffs with 4th and/or
+5th arguments in the brackets with the keywords “min” or “max”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dEcc<span class="w">  </span><span class="o">[</span><span class="m">0</span>.1,<span class="w"> </span><span class="m">0</span>.01,<span class="w"> </span>G,<span class="w"> </span>min0.0,<span class="w"> </span>max1.0<span class="o">]</span><span class="w">  </span>e
 </pre></div>
 </div>
 <p>You do not need to provide both min and max if you need only one, and their order does
