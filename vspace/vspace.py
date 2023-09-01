@@ -227,8 +227,8 @@ def main():
                 # sampling in random mode (monte carlo)
                 if len(values) != 3:
                     # if 3 values, we are good. if not, check a few options
-                    if values[2][0] == "g":
-                        # gaussian sampling for this parameter
+                    if values[2][0] == "g" or values[2][0] == "G":
+                        # gaussian or log-normal sampling for this parameter
                         # permits specification of min and max values
                         if len(values) >= 4 and len(values) < 6:
                             # check if 4th value contains min or max
@@ -238,7 +238,7 @@ def main():
                                 max_cutoff = float(values[3][3:])
                             else:
                                 raise IOError(
-                                    "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>, <width>, g, min<value>], [<center>, <width>, g, max<value>],[<center>, <width>, g, min<value>, max<value>], or [<center>, <width>, g, max<value>, min<value>]"
+                                    "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>, <width>, <g or G>, min<value>], [<center>, <width>, <g or G>, max<value>],[<center>, <width>, <g or G>, min<value>, max<value>], or [<center>, <width>, <g or G>, max<value>, min<value>]"
                                     % (name, flist[fnum - 1])
                                 )
                         if len(values) == 5:
@@ -249,17 +249,17 @@ def main():
                                 max_cutoff = float(values[4][3:])
                             else:
                                 raise IOError(
-                                    "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,g,min<value>], [<center>,<width>,g,max<value>],[<center>,<width>,g,min<value>,max<value>], or [<center>,<width>,g,max<value>,min<value>]"
+                                    "Incorrect syntax in Gaussian/log-normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,<g or G>,min<value>], [<center>,<width>,<g or G>,max<value>],[<center>,<width>,<g or G>,min<value>,max<value>], or [<center>,<width>,<g or G>,max<value>,min<value>]"
                                     % (name, flist[fnum - 1])
                                 )
                         if len(values) >= 6:
                             # too many values inside bracket notation
                             raise IOError(
-                                "Incorrect syntax in Gaussian/normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,g,min<value>], [<center>,<width>,g,max<value>],[<center>,<width>,g,min<value>,max<value>], or [<center>,<width>,g,max<value>,min<value>]"
+                                "Incorrect syntax in Gaussian/log-normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,<g or G>,min<value>], [<center>,<width>,<g or G>,max<value>],[<center>,<width>,<g or G>,min<value>,max<value>], or [<center>,<width>,<g or G>,max<value>,min<value>]"
                                 % (name, flist[fnum - 1])
                             )
                     else:
-                        # extra values only allowed in gaussian mode
+                        # extra values only allowed in gaussian or log-normal mode
                         raise IOError(
                             "Attempt to draw from uniform distributions of '%s' for '%s', but incorrect number of values provided. Syntax should be [<low>,<high>,<type of distribution>], where valid types of distributions are u (uniform), s (uniform in sine), or c (uniform in cosine)."
                             % (name, flist[fnum - 1])
@@ -286,7 +286,7 @@ def main():
                 else:
                     # tried to set linear spacing in random mode, exit
                     raise IOError(
-                        "Attempt to iterate over grid in random mode for '%s' for '%s'"
+                        "Attempt to iterate over linear grid in random mode for '%s' for '%s'"
                         % (name, flist[fnum - 1])
                     )
 
@@ -330,7 +330,7 @@ def main():
                 else:
                     # tried to set log spacing in random mode, exit
                     raise IOError(
-                        "Attempt to iterate over grid in random mode for '%s' for '%s'"
+                        "Attempt to iterate over log grid in random mode for '%s' for '%s'"
                         % (name, flist[fnum - 1])
                     )
 
@@ -392,6 +392,69 @@ def main():
                     #         )
                 else:
                     # tried to set gaussian sampling in grid mode, exit
+                    raise IOError(
+                        "Attempt to draw from a random distribution in grid mode for '%s' for '%s'"
+                        % (name, flist[fnum - 1])
+                    )
+
+            # user wants to randomly sample a log-normal/Galtonian distribution
+            elif values[2][0] == "G":
+                if mode == 1:
+                    # check if user set random mode
+                    # if yes, construct array of random samples
+                    array = np.random.lognormal(
+                        mean=float(values[0]),
+                        sigma=float(values[1]),
+                        size=int(randsize),
+                    )
+                    if "min_cutoff" in vars() and "max_cutoff" not in vars():
+                        # user has set a min value for this parameter
+                        # resample any values below until all are > min_cutoff
+                        for ll in np.arange(len(array)):
+                            while array[ll] < min_cutoff:
+                                array[ll] = np.random.lognormal(
+                                    mean=float(values[0]),
+                                    sigma=float(values[1]),
+                                    size=1,
+                                )
+                        del min_cutoff  # clean up so next parameter doesn't have spurious min_cutoff
+                    elif "min_cutoff" not in vars() and "max_cutoff" in vars():
+                        # user has set a max value for this parameter
+                        # resample any values above until all are < max_cutoff
+                        for ll in np.arange(len(array)):
+                            while array[ll] > max_cutoff:
+                                array[ll] = np.random.lognormal(
+                                    mean=float(values[0]),
+                                    sigma=float(values[1]),
+                                    size=1,
+                                )
+                        del max_cutoff  # clean up so next parameter doesn't have spurious max_cutoff
+                    elif "min_cutoff" in vars() and "max_cutoff" in vars():
+                        # user has set min and max values for this parameter
+                        # resample any values between the two
+                        for ll in np.arange(len(array)):
+                            while (
+                                array[ll] < min_cutoff
+                                or array[ll] > max_cutoff
+                            ):
+                                array[ll] = np.random.lognormal(
+                                    mean=float(values[0]),
+                                    sigma=float(values[1]),
+                                    size=1,
+                                )
+                        del max_cutoff  # clean up so next parameter doesn't have spurious cutoffs
+                        del min_cutoff
+                    # elif "min_cutoff" not in vars() and "max_cutoff" not in vars():
+                    #     #i can't remember why i resample everything here!
+                    #     #wtf??? maybe this can be removed??
+                    #     for ll in np.arange(len(array)):
+                    #         array[ll] = np.random.lognormal(
+                    #             mean=float(values[0]),
+                    #             sigma=float(values[1]),
+                    #             size=1,
+                    #         )
+                else:
+                    # tried to set log-normal/Galtonian sampling in grid mode, exit
                     raise IOError(
                         "Attempt to draw from a random distribution in grid mode for '%s' for '%s'"
                         % (name, flist[fnum - 1])
@@ -566,7 +629,7 @@ def main():
                 else:
                     # tried to set log spacing in random mode, exit
                     raise IOError(
-                        "Attempt to iterate over grid in random mode for '%s' for '%s'"
+                        "Attempt to iterate over log spacing grid in random mode for '%s' for '%s'"
                         % (name, flist[fnum - 1])
                     )
 
@@ -1029,6 +1092,7 @@ def main():
                     histtype="stepfilled",
                     color="0.5",
                     edgecolor="None",
+                    bins="fd"
                 )
                 plt.xlabel(iter_name[ii])
                 plt.ylabel("Number of trials")

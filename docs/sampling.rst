@@ -159,6 +159,36 @@ for example, dEcc should not be < 0 or > 1. You can provide cutoffs with 4th and
 You do not need to provide both min and max if you need only one, and their order does
 not matter.
 
+Log-Normal (Galton) Distributions
+^^^^^^^^^^^^^^^^^^^^^^
+
+For Log-Normal (Galton) distributions, the syntax is:
+
+.. code-block:: bash
+
+    <option> [<mu>, <sigma>, G] <prefix>
+
+An example would be:
+
+.. code-block:: bash
+
+    dEcc  [0.1, 0.01, G]  e
+
+Beware, the mu and sigma parameters of the log-normal distribution are not the mean
+ and standard deviation, however they are related. If a log-normally distributed parameter X
+ has been reported log_10 X = a +/- b, then mu = a ln 10 + b^2 (ln 10)^2 and sigma = b ln 10.
+
+For some parameters, you may want to truncate the distribution at certain values,
+for example, dEcc should not be < 0 or > 1. You can provide cutoffs with 4th and/or
+5th arguments in the brackets with the keywords "min" or "max":
+
+.. code-block:: bash
+
+    dEcc  [0.1, 0.01, G, min0.0, max1.0]  e
+
+You do not need to provide both min and max if you need only one, and their order does
+not matter.
+
 Sine and Cosine Distributions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
