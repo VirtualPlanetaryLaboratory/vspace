@@ -184,7 +184,7 @@ for example, dEcc should not be < 0 or > 1. You can provide cutoffs with 4th and
 
 .. code-block:: bash
 
-    dEcc  [0.1, 0.01, g, min0.0, max1.0]  e
+    dEcc  [0.1, 0.01, G, min0.0, max1.0]  e
 
 You do not need to provide both min and max if you need only one, and their order does
 not matter.
