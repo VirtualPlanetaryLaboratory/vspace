@@ -1091,7 +1091,8 @@ def main():
                     iterables0[ii],
                     histtype="stepfilled",
                     color="0.5",
-                    edgecolor="None"
+                    edgecolor="None",
+                    bins="fd"
                 )
                 plt.xlabel(iter_name[ii])
                 plt.ylabel("Number of trials")
