@@ -11,6 +11,8 @@ import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
+import json
+from astropy.io import ascii
 
 from . import (  # relative import does not seem to work here. can't figure out why
     vspace_hyak,
@@ -66,6 +68,11 @@ def main():
     iter_file = []  # which file each variable belongs to
     iter_name = []  # the name of each variable
     prefix = []
+    # Megan's Additions:
+    prior_files = [] # list to contain any & all names of prior files for predefined prior mode
+    prior_samples = [] # list to contain randomly selected priors
+    prior_indicies = [] # the randomly chosen prior index that creates samples
+    ## End Megan's Additons
     numtry = 1  # number of trials to be generated
     numvars = 0  # number of iter_vars
     angUnit = 0  # angle unit used for sine and cosine sampling
@@ -180,6 +187,37 @@ def main():
 
     # ^ end first pass through input file ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    # Begin Megans Addition -----------------------------------
+    # pass 1a through input file ------------------------------
+    # check for predefined prior mode, randomly generate samples 1 per input prior file
+    for i in range(len(lines)):
+        if re.search("\[", lines[i]) != None:
+            spl = re.split("[\[\]]", lines[i])
+            values = spl[1].split(",")
+            for j in range(len(values)):
+                values[j] = values[j].strip()
+            if values[2][0] == 'p':
+                if mode != 1:
+                    raise IOError("Random mode must be used when passing predefined priors")
+                if values[0] not in prior_files:
+                    prior_files.append(values[0])
+                    if values[1] == 'npy':
+                        fprior = np.load(values[0])
+                        prior_index = np.random.choice(fprior.shape[0], size=randsize, replace=False)
+                        prior_indicies.append(prior_index)
+                        samp = fprior[prior_index]
+                        prior_samples.append(samp)
+                    elif values[1] == 'txt' or values[1] == 'dat':
+                        fprior = ascii.read(values[0])
+                        prior_index = np.random.choice(len(fprior), size=randsize, replace=False)
+                        prior_indicies.append(prior_index)
+                        samp = fprior[prior_index]
+                        prior_samples.append(samp)
+                    elif values[1] != 'npy' and values[1] != 'txt' and values[1] != 'dat':
+                        raise IOError("File type incompatible for predefined prior mode. Acceptable file types: npy, ascii formatted txt, ascii formatted dat")
+    # End pass 1a through input file -------------------------------
+    # End Megans Addition ------------------------------------------
+
     # - second pass through input file ------------------------------------------
     # - identify and check syntax of lines demarking iterations -----------------
     # - build arrays of variables if all input is valid -------------------------
@@ -258,6 +296,10 @@ def main():
                                 "Incorrect syntax in Gaussian/log-normal distribution cutoff for '%s' for '%s'. Correct syntax is [<center>,<width>,<g or G>,min<value>], [<center>,<width>,<g or G>,max<value>],[<center>,<width>,<g or G>,min<value>,max<value>], or [<center>,<width>,<g or G>,max<value>,min<value>]"
                                 % (name, flist[fnum - 1])
                             )
+                    # Megan's Addition for Predefined prior mode
+                    elif len(values) == 4 and values[2][0] == 'p': #predefined prior mode will have len(values) == 4
+                        pass
+                    # End Megan's addition
                     else:
                         # extra values only allowed in gaussian or log-normal mode
                         raise IOError(
@@ -396,6 +438,19 @@ def main():
                         "Attempt to draw from a random distribution in grid mode for '%s' for '%s'"
                         % (name, flist[fnum - 1])
                     )
+                
+            # user wants to randomly sample predefined priors - Megan's addition -------------
+            elif values[2][0] == 'p':
+                if mode == 1:
+                    for q in range(len(prior_files)):
+                        if values[0] == prior_files[q]:
+                            samps = prior_samples[q]
+                    colnum = int(values[3]) - 1
+                    array_hold = []
+                    for q in range(len(samps)):
+                        array_hold.append(samps[q][colnum])
+                    array = np.array(array_hold)
+            # End Megan's addition -------------------------------
 
             # user wants to randomly sample a log-normal/Galtonian distribution
             elif values[2][0] == "G":
@@ -684,6 +739,21 @@ def main():
         os.system("mkdir " + dest)
 
     # end additional error handling ********************************************
+
+    # Begin Megans Addition -------------------------------------------
+    # Record the indicies of each prior file that are being used
+    if prior_files != []:
+        dic = {}
+        for j in range(len(prior_files)):
+            indexHold = []
+            for s in range(len(prior_indicies[j])):
+                indexHold.append(int(prior_indicies[j][s]))
+            dic[prior_files[j]] = indexHold
+        dichold = json.dumps(dic)
+        priorsused = open(os.path.join(dest, trial+'PriorIndicies.json'), 'w')
+        json.dump(dichold, priorsused)
+        priorsused.close()
+    # End Megans Addition ----------------------------------------------
 
     # ___ set up output and write it to new .in files ___________________________
     if numvars == 0:
