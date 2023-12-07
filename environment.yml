@@ -20,4 +20,4 @@ dependencies:
       - coverage>=5.5
       - argparse>=1.4
       - h5py>=3.1
-      - astropy>=6.0.0
+      - astropy>=4.0.0
