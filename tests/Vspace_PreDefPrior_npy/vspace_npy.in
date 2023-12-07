@@ -1,0 +1,16 @@
+srcfolder .
+destfolder Npy_PredefPrior_Test
+trialname npytest_
+samplemode random
+randsize 3
+
+file sun.in
+
+dRadius [0.00135, 0.001, g, min0.0036] sunRad
+
+file earth.in
+
+dEcc [npy_test_data.npy, npy, p, 1] ecc
+dRadius [npy_test_data.npy, npy, p, 3] rad
+
+file vpl.in
