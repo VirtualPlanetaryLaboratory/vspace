@@ -23,6 +23,7 @@ setup(
         "numpy",
         "matplotlib",
         "argparse",
+        "astropy"
     ],
     entry_points={
         "console_scripts": [
