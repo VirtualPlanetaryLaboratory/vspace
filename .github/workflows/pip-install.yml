@@ -23,8 +23,6 @@ jobs:
       - uses: actions/setup-python@v4
         name: Install Python
         with:
-          activate-environment: vplanet
-          environment-file: environment.yml
           python-version: ${{ matrix.python }}
 
       - name: Build
