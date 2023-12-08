@@ -23,5 +23,5 @@
 
 `VSPACE` is a tool to build input files for parameter sweeps with [`VPLanet`](https://github.com/VirtualPlanetaryLaboratory/vplanet).
 With `VSPACE` you can quickly and easily build input files with specific
-parameters with different distributions, such as grids, normal distribution, even sines and cosines. After generating the trials, use the [`MultiPlanet` package](https://github.com/VirtualPlanetaryLaboratory/multi-planet) to run the simulations
+parameters with different distributions, such as grids, normal distribution, sines and cosines, and even arbitrary distributions. After generating the trials, use the [`MultiPlanet` package](https://github.com/VirtualPlanetaryLaboratory/multi-planet) to run the simulations
 on multi-core platforms, and use [`BigPlanet`](https://github.com/VirtualPlanetaryLaboratory/bigplanet) to store and quickly analyze the results. [Read the docs](https://VirtualPlanetaryLaboratory.github.io/vspace/) to learn how to generate VPLanet parameter sweeps.
