@@ -381,11 +381,15 @@ def main():
                 if mode == 1:
                     # check if user set random mode
                     # if yes, construct array of random samples
-                    array = np.random.normal(
-                        loc=float(values[0]),
-                        scale=float(values[1]),
-                        size=int(randsize),
-                    )
+                    if (float(values[1]) >= 0):
+                        array = np.random.normal(
+                            loc=float(values[0]),
+                            scale=float(values[1]),
+                            size=int(randsize),
+                        )
+                    else:
+                        print("ERROR: Standard deviation must be non-negative for option "+name+".")
+                        exit()
                     if "min_cutoff" in vars() and "max_cutoff" not in vars():
                         # user has set a min value for this parameter
                         # resample any values below until all are > min_cutoff
