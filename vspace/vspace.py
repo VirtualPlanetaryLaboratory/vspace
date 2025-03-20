@@ -196,25 +196,30 @@ def main():
             values = spl[1].split(",")
             for j in range(len(values)):
                 values[j] = values[j].strip()
-            if values[2][0] == 'p':
-                if mode != 1:
-                    raise IOError("Random mode must be used when passing predefined priors")
-                if values[0] not in prior_files:
-                    prior_files.append(values[0])
-                    if values[1] == 'npy':
-                        fprior = np.load(values[0])
-                        prior_index = np.random.choice(fprior.shape[0], size=randsize, replace=False)
-                        prior_indicies.append(prior_index)
-                        samp = fprior[prior_index]
-                        prior_samples.append(samp)
-                    elif values[1] == 'txt' or values[1] == 'dat':
-                        fprior = ascii.read(values[0])
-                        prior_index = np.random.choice(len(fprior), size=randsize, replace=False)
-                        prior_indicies.append(prior_index)
-                        samp = fprior[prior_index]
-                        prior_samples.append(samp)
-                    elif values[1] != 'npy' and values[1] != 'txt' and values[1] != 'dat':
-                        raise IOError("File type incompatible for predefined prior mode. Acceptable file types: npy, ascii formatted txt, ascii formatted dat")
+            try:
+                if values[2][0] == 'p':
+                    if mode != 1:
+                        raise IOError("Random mode must be used when passing predefined priors")
+                    if values[0] not in prior_files:
+                        prior_files.append(values[0])
+                        if values[1] == 'npy':
+                            fprior = np.load(values[0])
+                            prior_index = np.random.choice(fprior.shape[0], size=randsize, replace=False)
+                            prior_indicies.append(prior_index)
+                            samp = fprior[prior_index]
+                            prior_samples.append(samp)
+                        elif values[1] == 'txt' or values[1] == 'dat':
+                            fprior = ascii.read(values[0])
+                            prior_index = np.random.choice(len(fprior), size=randsize, replace=False)
+                            prior_indicies.append(prior_index)
+                            samp = fprior[prior_index]
+                            prior_samples.append(samp)
+                        elif values[1] != 'npy' and values[1] != 'txt' and values[1] != 'dat':
+                            raise IOError("File type incompatible for predefined prior mode. Acceptable file types: npy, ascii formatted txt, ascii formatted dat")
+            except:
+                print('ERROR: Incorrect number of arguments.')
+                print(inputf+', line '+i+': '+lines[i])
+                exit()
     # End pass 1a through input file -------------------------------
     # End Megans Addition ------------------------------------------
 
