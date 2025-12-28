@@ -1,0 +1,7 @@
+srcfolder     Test_OptionAdd
+destfolder    OptionAdd_Test
+trialname     add
+samplemode    grid
+
+file planet.in
+dRotPeriod [1.0, 10.0, n2] rot
