@@ -1,0 +1,10 @@
+srcfolder     Test_Sine
+destfolder    Cosine_Radians_Test
+trialname     cosine_rad
+samplemode    random
+seed          42
+iNumTrials    100
+sUnitAngle    radians
+
+file earth.in
+dInc [0.0, 1.5708, c] inc

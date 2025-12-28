@@ -1,0 +1,8 @@
+# Earth parameters for sine/cosine testing
+sName           earth
+dMass           -1.0
+dRadius         -1.0
+dSemi           1.0
+dEcc            0.0167
+dInc            0.0
+sUnitAngle      degrees

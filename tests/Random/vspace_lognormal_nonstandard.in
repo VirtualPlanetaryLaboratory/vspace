@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    LogNormal_Nonstandard_Test
+trialname     lognormal_ns
+samplemode    random
+seed          42
+iNumTrials    100
+
+file earth.in
+dSemi [1.0, 0.5, G] semi
