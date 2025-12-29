@@ -1,0 +1,8 @@
+# Earth parameters for multi-parameter grid testing
+sName           earth
+dMass 1.0
+dRadius 1.0
+dSemi 1.5
+dEcc            0.0
+dInc            0.0
+sUnitAngle      degrees

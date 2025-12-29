@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    Uniform_Test
+trialname     uniform
+samplemode    random
+seed          42
+iNumTrials    100
+
+file earth.in
+dSemi [1.0, 2.0, u] semi

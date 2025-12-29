@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    Gaussian_MaxCutoff_Test
+trialname     gauss_max
+samplemode    random
+seed          42
+iNumTrials    100
+
+file earth.in
+dSemi [0.0, 1.0, g, max1.0] semi

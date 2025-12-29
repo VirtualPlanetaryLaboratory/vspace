@@ -1,0 +1,5 @@
+sName           planet
+dMass           1.0
+dRadius         1.0
+
+dRotPeriod 10.0

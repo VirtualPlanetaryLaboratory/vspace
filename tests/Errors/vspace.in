@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    NegativeSigma_Test
+trialname     neg_sigma
+samplemode    random
+seed          42
+iNumTrials    10
+
+file earth.in
+dSemi [1.0, -0.5, g] semi

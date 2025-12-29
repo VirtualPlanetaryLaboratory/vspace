@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    Gaussian_Test
+trialname     gaussian
+samplemode    random
+seed          42
+iNumTrials    100
+
+file earth.in
+dSemi [0.0, 1.0, g] semi

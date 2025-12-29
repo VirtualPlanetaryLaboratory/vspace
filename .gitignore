@@ -129,10 +129,21 @@ dmypy.json
 .pyre/
 
 
-# Test folders
+# Test folders - output directories from test runs
 tests/Vspace_Explicit/Explict_Test/
 tests/Vspace_Linear/Linear_Test/
 tests/Vspace_Log/Log_Test/
+tests/Vspace_PreDefPrior_npy/Npy_PredefPrior_Test/
+tests/Vspace_PreDefPrior_txt/Txt_PredefPrior_Test/
+tests/Random/*_Test*/
+tests/Errors/*_Test*/
+tests/ErrorHandling/*_Test*/
+tests/GridMode/*_Test*/
+tests/FileOps/*_Test*/
+tests/Integration/*_Test*/
+
+# Backup files
+*.backup
 
 # SCM version
 vspace/vspace_version.py

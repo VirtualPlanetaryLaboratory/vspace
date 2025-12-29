@@ -1,0 +1,9 @@
+srcfolder     Test_MultiParam
+destfolder    MixedSpacing_Grid_Test
+trialname     grid
+samplemode    grid
+
+file earth.in
+dSemi [1.0, 2.0, n3] semi
+dMass [1.0, 10.0, l2] mass
+dRadius [1.0, 3.0, 1.0] rad

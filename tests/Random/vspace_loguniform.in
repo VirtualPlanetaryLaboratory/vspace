@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    LogUniform_Test
+trialname     loguniform
+samplemode    random
+seed          42
+iNumTrials    100
+
+file earth.in
+dSemi [1.0, 100.0, t] semi

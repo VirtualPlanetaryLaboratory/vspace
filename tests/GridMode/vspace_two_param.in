@@ -1,0 +1,8 @@
+srcfolder     Test_MultiParam
+destfolder    TwoParam_Grid_Test
+trialname     grid
+samplemode    grid
+
+file earth.in
+dSemi [1.0, 2.0, n3] semi
+dEcc [0.0, 0.2, n3] ecc

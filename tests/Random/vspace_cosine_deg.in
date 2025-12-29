@@ -1,0 +1,10 @@
+srcfolder     Test_Sine
+destfolder    Cosine_Degrees_Test
+trialname     cosine_deg
+samplemode    random
+seed          42
+iNumTrials    100
+sUnitAngle    degrees
+
+file earth.in
+dInc [0.0, 90.0, c] inc

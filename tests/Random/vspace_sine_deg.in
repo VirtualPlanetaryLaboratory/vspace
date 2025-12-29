@@ -1,0 +1,10 @@
+srcfolder     Test_Sine
+destfolder    Sine_Degrees_Test
+trialname     sine_deg
+samplemode    random
+seed          42
+iNumTrials    100
+sUnitAngle    degrees
+
+file earth.in
+dInc [0.0, 90.0, s] inc

@@ -1,0 +1,9 @@
+srcfolder     Test
+destfolder    Seed_Test_Run1
+trialname     seed_test
+samplemode    random
+seed          12345
+iNumTrials    100
+
+file earth.in
+dSemi [1.0, 10.0, u] semi

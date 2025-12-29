@@ -1,0 +1,10 @@
+srcfolder     Test_MultiFile
+destfolder    MultiFile_Test
+trialname     multi
+samplemode    grid
+
+file earth.in
+dSemi [1.0, 2.0, n2] semi
+
+file sun.in
+dMass [0.9, 1.1, n2] mass

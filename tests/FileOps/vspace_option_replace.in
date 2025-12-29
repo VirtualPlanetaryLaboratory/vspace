@@ -1,0 +1,7 @@
+srcfolder     Test_OptionAdd
+destfolder    OptionReplace_Test
+trialname     replace
+samplemode    grid
+
+file planet.in
+dMass [0.5, 1.5, n2] mass
