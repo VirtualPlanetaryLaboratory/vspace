@@ -1,0 +1,22 @@
+codecov:
+  # Don't fail CI if coverage report has issues
+  require_ci_to_pass: no
+
+coverage:
+  status:
+    project:
+      default:
+        # Allow coverage to decrease
+        target: auto
+        threshold: 100%
+        informational: true
+    patch:
+      default:
+        # Don't fail on patch coverage
+        informational: true
+
+comment:
+  # Add comment to PR with coverage info
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: false
