@@ -137,6 +137,10 @@ tests/Vspace_PreDefPrior_npy/Npy_PredefPrior_Test/
 tests/Vspace_PreDefPrior_txt/Txt_PredefPrior_Test/
 tests/Random/*_Test*/
 tests/Errors/*_Test*/
+tests/ErrorHandling/*_Test*/
+tests/GridMode/*_Test*/
+tests/FileOps/*_Test*/
+tests/Integration/*_Test*/
 
 # Backup files
 *.backup
