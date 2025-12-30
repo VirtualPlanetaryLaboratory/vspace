@@ -17,7 +17,7 @@ def test_vspace_linear():
         shutil.rmtree(dir)
 
     # Run vspace
-    subprocess.check_output(["vspace", "vspace.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace.in"], cwd=path)
 
     # Grab the output
     folders = sorted(

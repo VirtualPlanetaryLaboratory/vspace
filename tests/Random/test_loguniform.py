@@ -27,7 +27,7 @@ def test_loguniform_positive():
         shutil.rmtree(dir)
 
     # Run vspace with fixed seed for reproducibility
-    subprocess.check_output(["vspace", "vspace_loguniform.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_loguniform.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -102,7 +102,7 @@ def test_loguniform_negative():
         shutil.rmtree(dir)
 
     # Run vspace with fixed seed for reproducibility
-    subprocess.check_output(["vspace", "vspace_loguniform_neg.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_loguniform_neg.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])

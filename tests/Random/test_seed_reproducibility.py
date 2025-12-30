@@ -22,7 +22,7 @@ def test_seed_reproduces_identical_values():
     if dir1.exists():
         shutil.rmtree(dir1)
 
-    subprocess.check_output(["vspace", "vspace_seed_test.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_seed_test.in"], cwd=path)
 
     # Extract values from first run
     folders1 = sorted([f.path for f in os.scandir(dir1) if f.is_dir()])
@@ -39,7 +39,7 @@ def test_seed_reproduces_identical_values():
     shutil.rmtree(dir1)
 
     # Second run with same seed=12345
-    subprocess.check_output(["vspace", "vspace_seed_test.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_seed_test.in"], cwd=path)
 
     # Extract values from second run
     folders2 = sorted([f.path for f in os.scandir(dir1) if f.is_dir()])
@@ -85,7 +85,7 @@ def test_different_seeds_produce_different_values():
     if dir1.exists():
         shutil.rmtree(dir1)
 
-    subprocess.check_output(["vspace", "vspace_seed_test.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_seed_test.in"], cwd=path)
 
     folders1 = sorted([f.path for f in os.scandir(dir1) if f.is_dir()])
     values1 = []
@@ -103,7 +103,7 @@ def test_different_seeds_produce_different_values():
     if dir2.exists():
         shutil.rmtree(dir2)
 
-    subprocess.check_output(["vspace", "vspace_seed_test2.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_seed_test2.in"], cwd=path)
 
     folders2 = sorted([f.path for f in os.scandir(dir2) if f.is_dir()])
     values2 = []
