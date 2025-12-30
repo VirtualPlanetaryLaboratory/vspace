@@ -3,7 +3,6 @@ from __future__ import print_function
 import argparse
 import itertools as it
 
-# import vspace_hyak
 import os
 import re
 import subprocess as sub
@@ -13,10 +12,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 from astropy.io import ascii
-
-from . import (  # relative import does not seem to work here. can't figure out why
-    vspace_hyak,
-)
 
 
 def SearchAngleUnit(src, flist):
@@ -1186,37 +1181,6 @@ def main():
                 plt.close()
 
     # ___ end set up output and write it to new .in files _______________________
-
-    # Just do this block if you want to
-    if False:
-        # Now that all the simulation directories have been populated,
-        # Make the submission scripts for hyak
-        # Parse input file
-
-        # TODO: allow the input file to include flags to set default things for
-        # the .pbs script and for whether or not to run this section
-
-        # Parallel or parallel_sql? Always use parallel_sql!
-        para = "parallel_sql"
-
-        destfolder, trialname, infiles, src = vspace_hyak.parseInput(
-            infile=inputf
-        )
-
-        # Make command list and .sh files to run the scripts
-        vspace_hyak.makeCommandList(
-            simdir=destfolder, infile=inputf, para=para
-        )
-
-        # Make the submission script
-        vspace_hyak.makeHyakVPlanetPBS(
-            script="run_vplanet.pbs",
-            taskargs="vplArgs.txt",
-            walltime="00:30:00",
-            para=para,
-            simdir=destfolder,
-            logdir=destfolder,
-        )
 
 
 if __name__ == "__main__":
