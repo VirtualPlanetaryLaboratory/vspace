@@ -1,0 +1,26 @@
+[run]
+source = vspace
+omit =
+    */tests/*
+    */test_*
+    */__pycache__/*
+    */vspace_version.py
+concurrency = multiprocessing
+parallel = True
+sigterm = True
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    @abstract
+
+[html]
+directory = htmlcov
