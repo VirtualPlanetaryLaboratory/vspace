@@ -47,11 +47,28 @@ jobs:
           echo "Running single unit test as diagnostic..."
           python -m pytest tests/Vspace_Explicit/test_vspace_explicit.py -v -s
 
+      - name: Enable subprocess coverage
+        run: |
+          # Install coverage subprocess support
+          echo "import coverage; coverage.process_startup()" > $(python -c "import site; print(site.getsitepackages()[0])")/coverage_subprocess.pth
+          # Set environment variable for coverage configuration
+          echo "COVERAGE_PROCESS_START=${{ github.workspace }}/.coveragerc" >> $GITHUB_ENV
+
       - name: Run tests
         timeout-minutes: 20
         run: |
           # Run all tests with verbose output, capture disabled to see subprocess output, and per-test timeout
-          python -m pytest tests/ -v -s --timeout=300 --junitxml=junit/test-results-${{ matrix.os }}-${{ matrix.python-version }}.xml --cov=vspace --cov-report=xml --cov-report=term
+          python -m pytest tests/ -v -s --timeout=300 --junitxml=junit/test-results-${{ matrix.os }}-${{ matrix.python-version }}.xml --cov --cov-report=xml --cov-report=term
+
+      - name: Combine coverage data
+        if: matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.9'
+        run: |
+          # Move all coverage files from subdirectories to repository root
+          find tests/ -name ".coverage.*" -type f -exec mv {} . \; 2>/dev/null || true
+          # Combine all coverage data files
+          python -m coverage combine
+          python -m coverage xml
+          python -m coverage report
 
       - name: Upload coverage to Codecov
         # Only upload from one runner to avoid redundant API calls
