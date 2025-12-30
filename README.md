@@ -16,13 +16,17 @@
   <img src="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/tests.yml/badge.svg">
     <img src="https://img.shields.io/badge/Python-3.9--3.13-orange.svg"></a>
   <a href="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/pip-install.yml">
-  
+  <a href="https://codecov.io/github/VirtualPlanetaryLaboratory/vspace">
+  <img src="https://codecov.io/github/VirtualPlanetaryLaboratory/vspace/graph/badge.svg?token=6Z8HVQW8N6">
+</a>
   <br>
   <img src="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/pip-install.yml/badge.svg">
     <img src="https://img.shields.io/badge/Python-3.6--3.9-orange.svg"></a>
     <img src = "https://img.shields.io/badge/Platforms-Linux_|%20macOS-darkgreen.svg?style=flat">
   </a>
 </p>
+
+
 
 `VSPACE` is a tool to build input files for parameter sweeps with [`VPLanet`](https://github.com/VirtualPlanetaryLaboratory/vplanet).
 With `VSPACE` you can quickly and easily build input files with specific
