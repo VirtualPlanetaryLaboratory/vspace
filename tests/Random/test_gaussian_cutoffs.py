@@ -24,7 +24,7 @@ def test_gaussian_min_cutoff():
         shutil.rmtree(dir)
 
     # Run vspace: Gaussian(0, 1) with min=-1.0
-    subprocess.check_output(["vspace", "-f", "vspace_gaussian_min.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_gaussian_min.in"], cwd=path, stderr=subprocess.STDOUT)
 
     # Extract values
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -72,7 +72,7 @@ def test_gaussian_max_cutoff():
         shutil.rmtree(dir)
 
     # Run vspace: Gaussian(0, 1) with max=1.0
-    subprocess.check_output(["vspace", "-f", "vspace_gaussian_max.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_gaussian_max.in"], cwd=path, stderr=subprocess.STDOUT)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
     values = []
@@ -118,7 +118,7 @@ def test_gaussian_both_cutoffs():
         shutil.rmtree(dir)
 
     # Run vspace: Gaussian(0, 1) with min=-1.5, max=1.5
-    subprocess.check_output(["vspace", "-f", "vspace_gaussian_both.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_gaussian_both.in"], cwd=path, stderr=subprocess.STDOUT)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
     values = []
