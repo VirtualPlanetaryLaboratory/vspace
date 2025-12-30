@@ -1272,59 +1272,30 @@ def test_backward_compatible_inputs():
 
 ---
 
-### Phase 5: Hyak Module (Weeks 14-15, LOW PRIORITY)
+### Phase 5: Hyak Module ~~(Weeks 14-15, LOW PRIORITY)~~ **COMPLETED - DEPRECATED** ✅
 
-#### Week 14: Assess Hyak Relevance
+**Status: DEPRECATED as of 2025-12-29**
 
-**Questions to answer:**
-1. Is vspace_hyak.py still actively used?
-2. Is the Hyak cluster still operational?
-3. Can this functionality be deprecated?
+After comprehensive analysis, the Hyak PBS/Torque scheduler integration has been deprecated for the following reasons:
 
-**If deprecated:**
-- Move to `vspace/deprecated/` directory
-- Add deprecation warnings
-- Remove from tests
-- Document in changelog
+1. **Superseded by multiplanet**: The multiplanet tool provides superior parallel execution with checkpoint/resume functionality that works on any system without scheduler dependencies.
 
-**If retained:**
-- Proceed to Week 15 refactoring
+2. **Obsolete technology**: PBS/Torque is legacy; modern HPC uses Slurm. Even UW's Hyak cluster migrated to Slurm in 2020.
 
-#### Week 15: Refactor Hyak Module (if retained)
+3. **Already disabled**: The code was wrapped in `if False:` block (vspace.py:1186-1214), indicating it was not actively used.
 
-Apply same refactoring process:
+4. **Hardcoded for single user**: Paths like `/gscratch/stf/dflemin3/` and email `dflemin3@uw.edu` indicate this was a personal tool never generalized.
 
-`vspace/hyak/parser.py`:
-```python
-def ftParseHyakConfig(sInputFile: str) -> Tuple[str, str, List[str], str]:
-    """Parse input file for Hyak configuration. Target: <20 lines."""
-    pass
-```
+**Actions taken:**
+- ✅ Deleted `vspace/hyak.py` and `vspace/vspace_hyak.py`
+- ✅ Removed `vspace_hyak` import from `vspace/vspace.py`
+- ✅ Removed dead code block (lines 1186-1214) from `vspace/vspace.py`
+- ✅ Documented deprecation in CLAUDE.md
+- ✅ Added deprecation notice to README.md
 
-`vspace/hyak/commandGenerator.py`:
-```python
-def fnMakeCommandList(sSimDir: str, sInputFile: str, sParallel: str) -> None:
-    """Generate command list for Hyak parallel. Target: <20 lines."""
-    pass
-```
-
-`vspace/hyak/pbsGenerator.py`:
-```python
-def fnMakeHyakPbsScript(...) -> None:
-    """Generate PBS submission script. Target: <20 lines."""
-    pass
-```
-
-Apply Hungarian notation:
-- `parseInput` → `ftParseInput`
-- `infile` → `sInputFile`
-- `destfolder` → `sDestFolder`
-- etc.
-
-**Phase 5 Complete When:**
-- ✅ Decision made on Hyak retention
-- ✅ If retained: refactored with tests
-- ✅ If deprecated: moved and documented
+**Recommendation for users needing HPC integration:**
+- Use multiplanet in interactive sessions on clusters
+- For true batch scheduling, consider adding Slurm job array support to multiplanet in the future
 
 ---
 
