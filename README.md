@@ -28,11 +28,3 @@
 With `VSPACE` you can quickly and easily build input files with specific
 parameters with different distributions, such as grids, normal distribution, sines and cosines, and even arbitrary distributions. After generating the trials, use the [`MultiPlanet` package](https://github.com/VirtualPlanetaryLaboratory/multi-planet) to run the simulations
 on multi-core platforms, and use [`BigPlanet`](https://github.com/VirtualPlanetaryLaboratory/bigplanet) to store and quickly analyze the results. [Read the docs](https://VirtualPlanetaryLaboratory.github.io/vspace/) to learn how to generate VPLanet parameter sweeps.
-
-## Deprecated Features
-
-### Hyak PBS Integration (removed in v2.0)
-
-The `hyak.py` and `vspace_hyak.py` modules for PBS/Torque job submission have been removed. These were specific to UW's legacy Hyak cluster which migrated to Slurm in 2020.
-
-**Modern alternative:** Use [multiplanet](https://github.com/VirtualPlanetaryLaboratory/multi-planet) which provides superior parallel execution on any system without scheduler dependencies. For HPC clusters, we recommend using multiplanet in interactive sessions or developing Slurm job array workflows if needed.
