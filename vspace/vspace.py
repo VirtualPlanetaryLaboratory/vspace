@@ -399,7 +399,7 @@ def main():
                                     loc=float(values[0]),
                                     scale=float(values[1]),
                                     size=1,
-                                )
+                                )[0]
                         del min_cutoff  # clean up so next parameter doesn't have spurious min_cutoff
                     elif "min_cutoff" not in vars() and "max_cutoff" in vars():
                         # user has set a max value for this parameter
@@ -410,7 +410,7 @@ def main():
                                     loc=float(values[0]),
                                     scale=float(values[1]),
                                     size=1,
-                                )
+                                )[0]
                         del max_cutoff  # clean up so next parameter doesn't have spurious max_cutoff
                     elif "min_cutoff" in vars() and "max_cutoff" in vars():
                         # user has set min and max values for this parameter
@@ -424,7 +424,7 @@ def main():
                                     loc=float(values[0]),
                                     scale=float(values[1]),
                                     size=1,
-                                )
+                                )[0]
                         del max_cutoff  # clean up so next parameter doesn't have spurious cutoffs
                         del min_cutoff
                     # elif "min_cutoff" not in vars() and "max_cutoff" not in vars():
@@ -475,7 +475,7 @@ def main():
                                     mean=float(values[0]),
                                     sigma=float(values[1]),
                                     size=1,
-                                )
+                                )[0]
                         del min_cutoff  # clean up so next parameter doesn't have spurious min_cutoff
                     elif "min_cutoff" not in vars() and "max_cutoff" in vars():
                         # user has set a max value for this parameter
@@ -486,7 +486,7 @@ def main():
                                     mean=float(values[0]),
                                     sigma=float(values[1]),
                                     size=1,
-                                )
+                                )[0]
                         del max_cutoff  # clean up so next parameter doesn't have spurious max_cutoff
                     elif "min_cutoff" in vars() and "max_cutoff" in vars():
                         # user has set min and max values for this parameter
@@ -500,7 +500,7 @@ def main():
                                     mean=float(values[0]),
                                     sigma=float(values[1]),
                                     size=1,
-                                )
+                                )[0]
                         del max_cutoff  # clean up so next parameter doesn't have spurious cutoffs
                         del min_cutoff
                     # elif "min_cutoff" not in vars() and "max_cutoff" not in vars():

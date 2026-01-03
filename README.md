@@ -11,17 +11,17 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-purple.svg"></a>
     <a href="https://VirtualPlanetaryLaboratory.github.io/vplanet/conduct.html"><img src="https://img.shields.io/badge/Code%20of-Conduct-7d93c7.svg"></a>
   <br>
-  <img src="https://img.shields.io/badge/Unit%20Tests-46-darkblue.svg"></a>
+  <img src="https://img.shields.io/badge/Unit%20Tests-48-darkblue.svg"></a>
   <a href="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/tests.yml">
   <img src="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/tests.yml/badge.svg">
-    <img src="https://img.shields.io/badge/Python-3.9--3.13-orange.svg"></a>
+    <img src="https://img.shields.io/badge/Python-3.9--3.14-orange.svg"></a>
   <a href="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/pip-install.yml">
   <a href="https://codecov.io/github/VirtualPlanetaryLaboratory/vspace">
   <img src="https://codecov.io/github/VirtualPlanetaryLaboratory/vspace/graph/badge.svg?token=6Z8HVQW8N6">
 </a>
   <br>
   <img src="https://github.com/VirtualPlanetaryLaboratory/vspace/actions/workflows/pip-install.yml/badge.svg">
-    <img src="https://img.shields.io/badge/Python-3.6--3.9-orange.svg"></a>
+    <img src="https://img.shields.io/badge/Python-3.9--3.14-orange.svg"></a>
     <img src = "https://img.shields.io/badge/Platforms-Linux_|%20macOS-darkgreen.svg?style=flat">
   </a>
 </p>

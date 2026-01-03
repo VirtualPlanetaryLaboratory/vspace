@@ -16,7 +16,7 @@ def test_vspace_predefprior_txt():
         shutil.rmtree(dir)
 
     # Run vspace
-    subprocess.check_output(["vspace", "vspace_txt.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_txt.in"], cwd=path, stderr=subprocess.STDOUT)
 
     # Grab the dat list of randomly selected priors
     priors = ascii.read(str(dir)+'/rand_list.dat')

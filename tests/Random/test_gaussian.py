@@ -26,7 +26,7 @@ def test_gaussian_basic():
         shutil.rmtree(dir)
 
     # Run vspace with fixed seed for reproducibility
-    subprocess.check_output(["vspace", "vspace_gaussian.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_gaussian.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -93,7 +93,7 @@ def test_gaussian_nonstandard():
         shutil.rmtree(dir)
 
     # Run vspace
-    subprocess.check_output(["vspace", "vspace_gaussian_nonstandard.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_gaussian_nonstandard.in"], cwd=path)
 
     # Extract values
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])

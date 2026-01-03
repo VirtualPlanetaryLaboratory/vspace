@@ -28,7 +28,7 @@ def test_uniform_distribution():
         shutil.rmtree(dir)
 
     # Run vspace with fixed seed for reproducibility
-    subprocess.check_output(["vspace", "vspace.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])

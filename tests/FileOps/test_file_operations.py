@@ -23,7 +23,7 @@ def test_multiple_input_files():
         shutil.rmtree(dir)
 
     # Run vspace with earth.in and sun.in
-    subprocess.check_output(["vspace", "vspace_multifile.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_multifile.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -70,7 +70,7 @@ def test_option_addition():
     if dir.exists():
         shutil.rmtree(dir)
 
-    subprocess.check_output(["vspace", "vspace_option_add.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_option_add.in"], cwd=path)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
 
@@ -106,7 +106,7 @@ def test_option_replacement():
     if dir.exists():
         shutil.rmtree(dir)
 
-    subprocess.check_output(["vspace", "vspace_option_replace.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_option_replace.in"], cwd=path)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
     assert len(folders) == 2, "Should have 2 trials"
@@ -163,7 +163,7 @@ dMass [0.5, 1.5, n2] mass
             shutil.rmtree(dir)
 
         # Run vspace
-        subprocess.check_output(["vspace", "vspace_tilde_test.in"], cwd=path)
+        subprocess.check_output(["vspace", "-f", "vspace_tilde_test.in"], cwd=path)
 
         # Verify it worked
         folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])

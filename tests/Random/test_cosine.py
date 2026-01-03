@@ -26,7 +26,7 @@ def test_cosine_degrees():
         shutil.rmtree(dir)
 
     # Run vspace with fixed seed for reproducibility
-    subprocess.check_output(["vspace", "vspace_cosine_deg.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_cosine_deg.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -87,7 +87,7 @@ def test_cosine_radians():
     if dir.exists():
         shutil.rmtree(dir)
 
-    subprocess.check_output(["vspace", "vspace_cosine_rad.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_cosine_rad.in"], cwd=path)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
     angles = []

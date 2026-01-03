@@ -24,7 +24,7 @@ def test_two_parameters_cartesian_product():
         shutil.rmtree(dir)
 
     # Run vspace
-    subprocess.check_output(["vspace", "vspace_two_param.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_two_param.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -97,7 +97,7 @@ def test_three_parameters_cube():
     if dir.exists():
         shutil.rmtree(dir)
 
-    subprocess.check_output(["vspace", "vspace_three_param.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_three_param.in"], cwd=path)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
 
@@ -163,7 +163,7 @@ def test_mixed_spacing_types():
     if dir.exists():
         shutil.rmtree(dir)
 
-    subprocess.check_output(["vspace", "vspace_mixed_spacing.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_mixed_spacing.in"], cwd=path)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
 

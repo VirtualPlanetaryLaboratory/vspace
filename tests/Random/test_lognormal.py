@@ -25,7 +25,7 @@ def test_lognormal_basic():
 
     # Run vspace with fixed seed
     # Using mean=0, sigma=1 for standard log-normal
-    subprocess.check_output(["vspace", "vspace_lognormal.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_lognormal.in"], cwd=path)
 
     # Grab the output folders
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
@@ -91,7 +91,7 @@ def test_lognormal_nonstandard():
     if dir.exists():
         shutil.rmtree(dir)
 
-    subprocess.check_output(["vspace", "vspace_lognormal_nonstandard.in"], cwd=path)
+    subprocess.check_output(["vspace", "-f", "vspace_lognormal_nonstandard.in"], cwd=path)
 
     folders = sorted([f.path for f in os.scandir(dir) if f.is_dir()])
     values = []
