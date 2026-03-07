@@ -213,7 +213,7 @@ def main():
                             raise IOError("File type incompatible for predefined prior mode. Acceptable file types: npy, ascii formatted txt, ascii formatted dat")
             except:
                 print('ERROR: Incorrect number of arguments.')
-                print(inputf+', line '+i+': '+lines[i])
+                print(inputf+', line '+str(i)+': '+lines[i])
                 exit()
     # End pass 1a through input file -------------------------------
     # End Megans Addition ------------------------------------------
